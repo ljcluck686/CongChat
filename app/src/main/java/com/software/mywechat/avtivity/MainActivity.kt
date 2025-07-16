@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.core.view.WindowCompat
 
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.software.mywechat.ui.page.HomePage
+import com.software.mywechat.ui.page.home.HomePage
 
 class MainActivity : ComponentActivity() {
 

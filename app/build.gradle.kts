@@ -50,6 +50,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation ("androidx.compose.material3:material3-window-size-class:1.0.1")
+//    implementation ("com.google.android.material:material:1.4.+")
+    implementation ("androidx.appcompat:appcompat:1.6.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -63,6 +65,5 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.17.0")
     implementation ("androidx.paging:paging-compose:1.0.0-alpha12")
     implementation ("androidx.compose.material:material-icons-extended:1.6.6")
-    implementation ("androidx.appcompat:appcompat:1.6.1")
     implementation ("com.belerweb:pinyin4j:2.5.1")
 }

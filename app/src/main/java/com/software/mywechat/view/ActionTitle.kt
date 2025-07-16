@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.Sms
@@ -98,7 +99,7 @@ fun ActionTitle(
                             Spacer(modifier = Modifier.size(15.dp))
                         }
                         Icon(
-                            Icons.Filled.ArrowForwardIos, null,
+                            Icons.AutoMirrored.Filled.ArrowForwardIos, null,
                             modifier = Modifier.size(20.dp),
                             tint = Color(ContextCompat.getColor(context, R.color.gray_10)
                             )
