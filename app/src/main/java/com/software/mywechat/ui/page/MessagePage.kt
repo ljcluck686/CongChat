@@ -1,11 +1,13 @@
 package com.software.mywechat.ui.page
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -30,6 +32,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButtonDefaults.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,111 +48,76 @@ import androidx.core.content.ContextCompat
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.software.mywechat.R
-import com.software.mywechat.data.CQMessage
+import com.software.mywechat.data.MessageItem
 import com.software.mywechat.data.messageList
 import com.software.mywechat.view.CQDivider
 
 @OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MessagePage(){
+fun MessagePage(innerPadding: PaddingValues) {
     val context = LocalContext.current
-    rememberSystemUiController()?.setStatusBarColor(Color.White, darkIcons = true)
+    rememberSystemUiController().setStatusBarColor(Color.Transparent, darkIcons = true)
     val scrollState = rememberLazyListState()
-
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        "微信",
-                        maxLines = 1,
-                        fontSize = 16.sp,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                },
-                actions = {
-                    IconButton(onClick = {
-                        /* doSomething() */
-                    }) {
-                        Icon(
-                            imageVector = Icons.Filled.Search,
-                            contentDescription = null,
-                            modifier = Modifier.size(30.dp),
-                        )
-                    }
-                    IconButton(onClick = {
-                        /* doSomething() */
-                    }) {
-                        Icon(
-                            imageVector = Icons.Filled.AddCircleOutline,
-                            contentDescription = null,
-                            modifier = Modifier.size(25.dp),
-                        )
-                    }
-                }
-            )
-        },
-        content = { innerPadding  ->
-            LazyColumn (
-                contentPadding = innerPadding,
-                //verticalArrangement = Arrangement.spacedBy(8.dp),
-                state = scrollState
-            ){
-                item {
-                    CQDivider()
-                }
-                item {
-                    Box(modifier = Modifier
-                        .fillMaxWidth()
-                        .height(45.dp)
+    Surface {
+        LazyColumn(
+            contentPadding = innerPadding,
+            //verticalArrangement = Arrangement.spacedBy(8.dp),
+            state = scrollState
+        ) {
+            item {
+                CQDivider()
+            }
+            item {
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(45.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(40.dp, 0.dp, 35.dp, 0.dp)
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(40.dp, 0.dp, 35.dp, 0.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.PersonalVideo,
-                                contentDescription = null,
-                                modifier = Modifier.size(23.dp),
-                                tint = Color(ContextCompat.getColor(context, R.color.gray))
-                            )
-                            Text(
-                                text = "mac 微信已登陆",
-                                color = Color(ContextCompat.getColor(context, R.color.gray)),
-                                fontSize = 14.sp,
-                                modifier = Modifier.padding(25.dp, 0.dp, 0.dp,0.dp)
-                            )
-                        }
+                        Icon(
+                            imageVector = Icons.Filled.PersonalVideo,
+                            contentDescription = null,
+                            modifier = Modifier.size(23.dp),
+                            tint = Color(ContextCompat.getColor(context, R.color.gray))
+                        )
+                        Text(
+                            text = "Windows 微信已登陆",
+                            color = Color(ContextCompat.getColor(context, R.color.gray)),
+                            fontSize = 14.sp,
+                            modifier = Modifier.padding(25.dp, 0.dp, 0.dp,0.dp)
+                        )
                     }
-                }
-                item {
-                    CQDivider()
-                }
-                items(messageList) {
-                    it.let {
-                        Column {
-                            MessageItem(it = it, context)
-                            HorizontalDivider(
-                                modifier = Modifier.padding(60.dp, 0.dp,0.dp,0.dp),
-                                thickness = 0.2.dp,
-                                color = Color(ContextCompat.getColor(context, R.color.gray_10))
-                            )
-                        }
-                    }
-                }
-                item {
-                    Spacer(modifier = Modifier.height(60.dp))
                 }
             }
+            item {
+                CQDivider()
+            }
+            items(messageList) {
+                it.let {
+                    Column {
+                        MessageItem(it = it, context)
+                        HorizontalDivider(
+                            modifier = Modifier.padding(70.dp, 0.dp,0.dp,0.dp),
+                            thickness = 0.2.dp,
+                            color = Color(ContextCompat.getColor(context, R.color.gray_10))
+                        )
+                    }
+                }
+            }
+            item {
+                Spacer(modifier = Modifier.height(60.dp))
+            }
         }
-    )
-
+    }
 }
 
 @Composable
-fun MessageItem(it: CQMessage, context: Context) {
+fun MessageItem(it: MessageItem, context: Context) {
     Box(
         modifier = Modifier
             .fillMaxWidth()

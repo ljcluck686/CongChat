@@ -15,7 +15,7 @@ fun CQDivider(thickness: Dp? = 0.2.dp, colorId: Int? = R.color.gray_10) {
     val context = LocalContext.current
     val color = colorId ?: R.color.gray_10
     HorizontalDivider(
+        color = Color(ContextCompat.getColor(context, color)),
         thickness = height,
-        color = Color(ContextCompat.getColor(context, color))
     )
 }

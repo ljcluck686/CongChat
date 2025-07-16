@@ -63,4 +63,6 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.17.0")
     implementation ("androidx.paging:paging-compose:1.0.0-alpha12")
     implementation ("androidx.compose.material:material-icons-extended:1.6.6")
+    implementation ("androidx.appcompat:appcompat:1.6.1")
+    implementation ("com.belerweb:pinyin4j:2.5.1")
 }
