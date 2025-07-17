@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MyWeChat"
         tools:targetApi="31">
         <activity
-            android:name=".avtivity.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyWeChat">
@@ -25,11 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".avtivity.FriendsMomentActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MyWeChat"/>
-        <!--            android:theme="@style/Theme.ComposeWechat.NoActionBar"-->
+
     </application>
 
 </manifest>
