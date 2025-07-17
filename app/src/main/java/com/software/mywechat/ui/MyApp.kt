@@ -9,6 +9,7 @@ import com.software.mywechat.feature.guide.GUIDE_ROUTE
 import com.software.mywechat.feature.guide.guideScreen
 import com.software.mywechat.feature.main.MAIN_ROUTE
 import com.software.mywechat.feature.main.mainScreen
+import com.software.mywechat.feature.main.navigationToMain
 import com.software.mywechat.feature.me.meScreen
 import com.software.mywechat.feature.splash.splashScreen
 
@@ -18,12 +19,14 @@ fun MyApp(
 
 ){
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = MAIN_ROUTE) {
+    NavHost(navController = navController, startDestination = GUIDE_ROUTE) {
         mainScreen()
         splashScreen()
         addressBookScreen()
         discoveryScreen()
         meScreen()
-        guideScreen()
+        guideScreen(
+            toMain = navController::navigationToMain
+        )
     }
 }

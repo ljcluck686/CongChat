@@ -17,11 +17,11 @@ const val GUIDE_ROUTE = "guide"
 //}
 //
 fun NavGraphBuilder.guideScreen(
-
+    toMain: () -> Unit,
 ): Unit {
     myComposable(GUIDE_ROUTE) {
         GuideRoute(
-
+            toMain = toMain
         )
     }
 }

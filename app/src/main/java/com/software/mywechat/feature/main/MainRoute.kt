@@ -36,7 +36,7 @@ fun MainScreen(
 
 ){
     var currentDestination by rememberSaveable() {
-        mutableStateOf(TopLevelDestination.DISCOVERY.route)
+        mutableStateOf(TopLevelDestination.SPLASH.route)
     }
 
     //协程作用域
@@ -56,8 +56,7 @@ fun MainScreen(
                 .weight(1f).fillMaxWidth()
         ) { page ->
             when(page){
-                0 -> SplashRoute(
-                )
+                0 -> SplashRoute()
                 1 -> AddressBookRoute()
                 2 -> DiscoveryRoute()
                 3 -> MeRoute()
