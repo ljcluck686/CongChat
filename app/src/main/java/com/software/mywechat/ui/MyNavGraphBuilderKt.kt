@@ -8,11 +8,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
 
-/**
- * 配置路由
- *
- * 方便以后统一设置
- */
 public fun NavGraphBuilder.myComposable(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
@@ -25,4 +20,5 @@ public fun NavGraphBuilder.myComposable(
         deepLinks = deepLinks,
         content = content,
     )
+
 }

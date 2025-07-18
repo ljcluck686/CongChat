@@ -14,6 +14,6 @@ fun NavGraphBuilder.discoveryScreen(
 
 ): Unit {
     myComposable(DISCOVERY_ROUTE) {
-
+        DiscoveryRoute()
     }
 }

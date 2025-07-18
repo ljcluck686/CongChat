@@ -14,6 +14,6 @@ fun NavGraphBuilder.splashScreen(
 
 ): Unit {
     myComposable(SPLASH_ROUTE) {
-
+        SplashScreen()
     }
 }

@@ -62,7 +62,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation ("com.belerweb:pinyin4j:2.5.1")
+    implementation (libs.pinyin4j)
+    implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.compose.material.iconsExtended)
     //导航栏
     implementation (libs.androidx.navigation.compose)

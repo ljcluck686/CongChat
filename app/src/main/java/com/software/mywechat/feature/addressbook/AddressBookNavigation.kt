@@ -14,6 +14,6 @@ fun NavGraphBuilder.addressBookScreen(
 
 ): Unit {
     myComposable(ADDRESS_BOOK_ROUTE) {
-
+        AddressBookRoute()
     }
 }
