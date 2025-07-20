@@ -6,7 +6,7 @@ import com.software.mywechat.feature.discovery.DISCOVERY_ROUTE
 import com.software.mywechat.feature.me.ME_ROUTE
 import com.software.mywechat.feature.splash.SPLASH_ROUTE
 
-enum class TopLevelDestination(
+enum class BottomLevelDestination(
     val selectedIcon: Int,
     val unselectedIcon: Int,
     val titleTextId: Int,
@@ -36,5 +36,27 @@ enum class TopLevelDestination(
         unselectedIcon = R.mipmap.icon_me_m,
         titleTextId = R.string.me,
         route = ME_ROUTE,
+    ),
+}
+
+enum class TopLevelDestination(
+    val titleTextId: Int,
+    val searchIcon: Int,
+    val addIcon:Int,
+){
+    SPLASH(
+        titleTextId = R.string.splash,
+        searchIcon = R.mipmap.icon_search_plus,
+        addIcon = R.mipmap.icon_add_plus,
+    ),
+    ADDRESS_BOOK(
+        titleTextId = R.string.address_book,
+        searchIcon = R.mipmap.icon_search_plus,
+        addIcon = R.mipmap.icon_add_plus,
+    ),
+    DISCOVERY(
+        titleTextId = R.string.discovery,
+        searchIcon = R.mipmap.icon_search_plus,
+        addIcon = R.mipmap.icon_add_plus,
     ),
 }

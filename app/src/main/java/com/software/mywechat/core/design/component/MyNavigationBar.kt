@@ -21,11 +21,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.software.mywechat.core.design.theme.md_theme_light_errorContainer
 import com.software.mywechat.core.design.theme.md_theme_light_secondary
-import com.software.mywechat.feature.main.TopLevelDestination
+import com.software.mywechat.feature.main.BottomLevelDestination
 
 @Composable
 fun MyNavigationBar(
-    destinations: List<TopLevelDestination>,
+    destinations: List<BottomLevelDestination>,
     onNavigateToDestination: (Int) -> Unit,
     currentDestination:String,
     modifier: Modifier = Modifier

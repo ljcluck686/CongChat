@@ -1,8 +1,5 @@
 package com.software.mywechat.feature.main
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,13 +14,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import com.software.mywechat.core.design.component.MyNavigationBar
+import com.software.mywechat.core.design.component.MyTopAppBar
 import com.software.mywechat.feature.addressbook.AddressBookRoute
 import com.software.mywechat.feature.discovery.DiscoveryRoute
 import com.software.mywechat.feature.splash.SplashRoute
 import com.software.mywechat.feature.me.MeRoute
-import com.software.mywechat.util.CurrentActivityHolder
 import kotlinx.coroutines.launch
 
 @Composable
@@ -45,24 +41,38 @@ fun MainScreen(
     toRegister:()->Unit={},
 ){
     var currentDestination by rememberSaveable() {
-        mutableStateOf(TopLevelDestination.SPLASH.route)
+        mutableStateOf(BottomLevelDestination.SPLASH.route)
     }
 
     val scope = rememberCoroutineScope()
 
 
+    val topLevelDestination = when (currentDestination) {
+        BottomLevelDestination.SPLASH.route -> TopLevelDestination.SPLASH
+        BottomLevelDestination.ADDRESS_BOOK.route -> TopLevelDestination.ADDRESS_BOOK
+        BottomLevelDestination.DISCOVERY.route -> TopLevelDestination.DISCOVERY
+        else -> null
+    }
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
+        if (topLevelDestination != null) {
+            MyTopAppBar(
+                currentDestination = topLevelDestination,
+                onSearchClick = {  },
+                onAddClick = { },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
         val pagerState = rememberPagerState{
-            TopLevelDestination.entries.size
+            BottomLevelDestination.entries.size
         }
 
         LaunchedEffect(pagerState.currentPage) {
-            currentDestination = TopLevelDestination.values()[pagerState.currentPage].route
+            currentDestination = BottomLevelDestination.values()[pagerState.currentPage].route
         }
-
 
 
         HorizontalPager(
@@ -79,9 +89,9 @@ fun MainScreen(
             }
         }
         MyNavigationBar(
-            destinations = TopLevelDestination.entries,
+            destinations = BottomLevelDestination.entries,
             onNavigateToDestination = {
-                currentDestination = TopLevelDestination.values()[it].route
+                currentDestination = BottomLevelDestination.values()[it].route
                 scope.launch {
                     pagerState.scrollToPage(it)
                 }
