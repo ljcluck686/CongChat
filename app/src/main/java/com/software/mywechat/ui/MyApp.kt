@@ -30,7 +30,9 @@ fun MyApp(
         )
         splashScreen()
         addressBookScreen()
-        discoveryScreen()
+        discoveryScreen(
+            toLogin = navController::navigationToLogin
+        )
         meScreen(
             toLogin = navController::navigationToLogin,
             toRegister = navController::navigationToRegister,

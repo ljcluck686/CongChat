@@ -11,9 +11,11 @@ fun NavController.navigationToDiscovery():Unit{
 }
 
 fun NavGraphBuilder.discoveryScreen(
-
+    toLogin:()->Unit,
 ): Unit {
     myComposable(DISCOVERY_ROUTE) {
-        DiscoveryRoute()
+        DiscoveryRoute(
+            toLogin = toLogin,
+        )
     }
 }

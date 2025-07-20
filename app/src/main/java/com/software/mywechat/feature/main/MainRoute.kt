@@ -84,7 +84,7 @@ fun MainScreen(
             when(page){
                 0 -> SplashRoute()
                 1 -> AddressBookRoute()
-                2 -> DiscoveryRoute()
+                2 -> DiscoveryRoute(toLogin)
                 3 -> MeRoute(toLogin,toRegister)
             }
         }

@@ -11,4 +11,14 @@
     <string name="forgot_password">忘记密码</string>
     <string name="phone">手机号</string>
     <string name="password">密码</string>
+    <string name="pengyouquan">朋友圈</string>
+    <string name="shipinhao">视频号</string>
+    <string name="saoyisao">扫一扫</string>
+    <string name="tingyiting">听一听</string>
+    <string name="kanyikan">看一看</string>
+    <string name="souyisou">搜一搜</string>
+    <string name="fujin">附近</string>
+    <string name="gouwu">购物</string>
+    <string name="youxi">游戏</string>
+    <string name="xiaochengxu">小程序</string>
 </resources>

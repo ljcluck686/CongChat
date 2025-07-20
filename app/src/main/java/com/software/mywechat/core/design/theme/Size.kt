@@ -1,11 +1,19 @@
 package com.software.mywechat.core.design.theme
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import com.software.mywechat.R
 
 val IndicatorWidth = 8.dp
 
@@ -58,7 +66,7 @@ fun SpaceMediumWidth(): Unit {
 
 @Composable
 fun SpaceMediumHeight() {
-    Spacer(modifier = Modifier.height(SpaceMedium))
+    Spacer(modifier = Modifier.height(SpaceMedium).background(color = md_theme_light_background))
 }
 
 @Composable
@@ -84,6 +92,17 @@ fun SpaceSmallHeight(): Unit {
 @Composable
 fun SpaceExtraSmallHeight(): Unit {
     Spacer(modifier = Modifier.height(SpaceExtraSmall))
+}
+
+@Composable
+fun CQDivider(thickness: Dp? = 0.2.dp, colorId: Int? = R.color.gray_10) {
+    val height = thickness ?: 0.2.dp
+    val context = LocalContext.current
+    val color = colorId ?: R.color.gray_10
+    HorizontalDivider(
+        thickness = height,
+        color = Color(ContextCompat.getColor(context, color))
+    )
 }
 
 //@Composable
