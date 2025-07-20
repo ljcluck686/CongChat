@@ -89,16 +89,18 @@ fun RegisterScreen(
                 .padding(paddingValues)
                 .padding(start = SpaceLarge, end = SpaceLarge, top = SpaceLarge)
         ) {
-            TextField(
-                value = data.nickname,
-                onValueChange = {
-                    onValueChange(data.copy(nickname = it))
-                },
-                label = { Text(text = "昵称") },
-                placeholder = { Text(text = "请输入昵称") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
+            data.nickname?.let {
+                TextField(
+                    value = it,
+                    onValueChange = {
+                        onValueChange(data.copy(nickname = it))
+                    },
+                    label = { Text(text = "昵称") },
+                    placeholder = { Text(text = "请输入昵称") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
             TextField(
                 value = data.phone,
                 onValueChange = {

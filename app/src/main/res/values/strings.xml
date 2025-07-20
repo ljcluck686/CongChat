@@ -4,4 +4,11 @@
     <string name="address_book">通信录</string>
     <string name="discovery">发现</string>
     <string name="me">我</string>
+    <string name="login">登录</string>
+    <string name="register">立即注册</string>
+    <string name="enter_phone">请输入手机号</string>
+    <string name="enter_password">请输入密码</string>
+    <string name="forgot_password">忘记密码</string>
+    <string name="phone">手机号</string>
+    <string name="password">密码</string>
 </resources>

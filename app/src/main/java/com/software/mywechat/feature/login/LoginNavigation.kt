@@ -10,8 +10,14 @@ fun NavController.navigationToLogin():Unit{
     navigate(LOGIN_ROUTE)
 }
 
-fun NavGraphBuilder.loginScreen():Unit{
+fun NavGraphBuilder.loginScreen(
+    toBack: () -> Unit,
+    toRegister: () -> Unit,
+):Unit{
     myComposable(LOGIN_ROUTE){
-
+        LoginRoute(
+            toBack=toBack,
+            toRegister=toRegister,
+        )
     }
 }

@@ -12,5 +12,9 @@ interface MyNetworkApiService {
         @Body data: User,
     ): NetworkResponse<Session>
 
+    @POST("v1/user/login")
+    suspend fun login(
+        @Body data:User,
+    ):NetworkResponse<Session>
 
 }

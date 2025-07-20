@@ -38,7 +38,10 @@ fun MyApp(
         guideScreen(
             toMain = navController::navigationToMain
         )
-        loginScreen()
+        loginScreen(
+            toBack = navController::popBackStack,
+            toRegister = navController::navigationToRegister
+        )
         registerScreen(
             toBack = navController::popBackStack
         )

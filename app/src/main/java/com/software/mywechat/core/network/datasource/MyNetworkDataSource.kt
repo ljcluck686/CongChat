@@ -8,4 +8,8 @@ interface MyNetworkDataSource {
     suspend fun register(
         data: User,
     ): NetworkResponse<Session>
+
+    suspend fun login(
+        data: User
+    ):NetworkResponse<Session>
 }

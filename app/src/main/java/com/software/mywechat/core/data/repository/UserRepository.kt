@@ -22,5 +22,13 @@ class UserRepository @Inject constructor(
         )
     }.flowOn(Dispatchers.IO)
 
+    fun login(
+        data:User
+    ):Flow<NetworkResponse<Session>> = flow{
+        emit(
+            networkDataSource.login(data)
+        )
+    }.flowOn(Dispatchers.IO)
+
 
 }
