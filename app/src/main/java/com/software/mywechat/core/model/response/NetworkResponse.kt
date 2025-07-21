@@ -4,9 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetworkResponse<T>(
+    val code: Int = 0,
+    val msg: String,
     val data: T? = null,
-    val status: Int = 0,
 ) {
     val isSucceeded: Boolean
-        get() = status == 200
+        get() = code == 200
 }

@@ -11,5 +11,5 @@ fun AddressBookRoute(
 
 @Composable
 fun AddressBookScreen() {
-    Text("联系人界面联系人界面联系人界面")
+    
 }

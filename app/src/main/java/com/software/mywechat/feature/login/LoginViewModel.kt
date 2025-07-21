@@ -48,7 +48,7 @@ class LoginViewModel @Inject constructor(
                 .asResult()
                 .collectLatest {
                     if(it.isSuccess){
-                        Log.d("true", "login: accept")
+                        Log.d("congcong", "login: accept")
                     }
                 }
         }

@@ -11,5 +11,5 @@ fun SplashRoute(
 
 @Composable
 fun SplashScreen() {
-    Text("主界面主界面")
+
 }
