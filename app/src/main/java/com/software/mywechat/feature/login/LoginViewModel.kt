@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.software.mywechat.R
+import com.software.mywechat.core.data.repository.UserDataRepository
 import com.software.mywechat.core.data.repository.UserRepository
 import com.software.mywechat.core.model.User
 import com.software.mywechat.core.result.asResult
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val userDataRepository: UserDataRepository,
 ):ViewModel() {
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.None)
     val uiState : StateFlow<LoginUiState> = _uiState
@@ -48,7 +50,25 @@ class LoginViewModel @Inject constructor(
                 .asResult()
                 .collectLatest {
                     if(it.isSuccess){
-                        Log.d("congcong", "login: accept")
+//                        Log.d("congcong", "login: accept")
+                        val result = it.getOrThrow()
+//                        queryUserInfo(result.data!!.token)
+                        userDataRepository.setSession(result.data!!.toPreferences())
+                        queryUserInfo(result.data!!.token)
+                        _uiState.value = LoginUiState.Success
+                    }
+                }
+        }
+    }
+
+    private fun queryUserInfo(token: String) {
+        viewModelScope.launch {
+            userRepository.userInfo(token)
+                .asResult()
+                .collectLatest {
+                    if(it.isSuccess){
+                        val result = it.getOrThrow()
+                        userDataRepository.setUser(result.data!!.toPreferences())
                     }
                 }
         }

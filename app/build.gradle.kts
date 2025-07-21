@@ -1,3 +1,5 @@
+import com.google.protobuf.gradle.GenerateProtoTask
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -8,6 +10,9 @@ plugins {
     //依赖注入
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+
+    //protobuf插件
+    alias(libs.plugins.protobuf)
 }
 
 android {
@@ -93,4 +98,46 @@ dependencies {
     //endregion
 
     compileOnly(libs.ksp.gradlePlugin)
+
+    //数据存储
+    implementation("androidx.datastore:datastore:1.0.0")
+
+    implementation(libs.protobuf.kotlin.lite)
 }
+
+//protobuf生成文件配置
+protobuf {
+    protoc {
+        artifact = libs.protobuf.protoc.get().toString()
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                register("java") {
+                    option("lite")
+                }
+                register("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
+//https://github.com/google/dagger/issues/4097#issuecomment-1763781846
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        afterEvaluate {
+            val protoTask =
+                project.tasks.getByName("generate" + variant.name.replaceFirstChar { it.uppercaseChar() } + "Proto") as GenerateProtoTask
+
+            project.tasks.getByName("ksp" + variant.name.replaceFirstChar { it.uppercaseChar() } + "Kotlin") {
+                dependsOn(protoTask)
+                (this as org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompileTool<*>).setSource(
+                    protoTask.outputBaseDir
+                )
+            }
+        }
+    }
+}
+

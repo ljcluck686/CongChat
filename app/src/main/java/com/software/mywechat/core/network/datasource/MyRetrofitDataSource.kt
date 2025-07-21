@@ -35,4 +35,8 @@ class MyRetrofitDataSource @Inject constructor(
     override suspend fun login(data: User): NetworkResponse<Session> {
         return service.login(data)
     }
+
+    override suspend fun userInfo(authorization: String): NetworkResponse<User> {
+        return service.userInfo(authorization)
+    }
 }

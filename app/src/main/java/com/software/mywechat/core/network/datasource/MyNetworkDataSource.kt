@@ -12,4 +12,9 @@ interface MyNetworkDataSource {
     suspend fun login(
         data: User
     ):NetworkResponse<Session>
+
+    suspend fun userInfo(
+        authorization: String
+    ):NetworkResponse<User>
+
 }

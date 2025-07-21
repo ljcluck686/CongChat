@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.software.app.core.datastore";
+option java_multiple_files = true;
+
+//json转为proto
+//https://json-to-proto.github.io/
+
+message UserPreferences {
+  string id = 1;
+  string phone =2;
+  string nickname =3;
+  string sex = 4;
+  string avatar = 5;
+
+}

@@ -4,6 +4,8 @@ import com.software.mywechat.core.model.response.NetworkResponse
 import com.software.mywechat.core.model.Session
 import com.software.mywechat.core.model.User
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface MyNetworkApiService {
@@ -16,5 +18,10 @@ interface MyNetworkApiService {
     suspend fun login(
         @Body data:User,
     ):NetworkResponse<Session>
+
+    @GET("v1/user/userinfo")
+    suspend fun userInfo(
+        @Header("Authorization") authorization: String
+    ): NetworkResponse<User>
 
 }

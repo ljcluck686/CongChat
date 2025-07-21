@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import okhttp3.Dispatcher
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
@@ -27,6 +26,14 @@ class UserRepository @Inject constructor(
     ):Flow<NetworkResponse<Session>> = flow{
         emit(
             networkDataSource.login(data)
+        )
+    }.flowOn(Dispatchers.IO)
+
+    fun userInfo(
+        authorization: String
+    ):Flow<NetworkResponse<User>> = flow{
+        emit(
+            networkDataSource.userInfo(authorization)
         )
     }.flowOn(Dispatchers.IO)
 

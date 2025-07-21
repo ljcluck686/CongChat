@@ -157,6 +157,14 @@ fun LoginScreen(
                             text = stringResource(id = R.string.forgot_password),
                         )
                     }
+                    when(val uiState = uiState){
+                        is LoginUiState.Success->{
+                            Text(text = "太棒了")
+                        }
+                        else ->{
+
+                        }
+                    }
                 }
 
             }

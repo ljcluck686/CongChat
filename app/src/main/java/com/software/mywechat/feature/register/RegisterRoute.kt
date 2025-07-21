@@ -49,7 +49,7 @@ fun RegisterRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
-    data: User = User("","","","",0),
+    data: User = User("","","","","",0),
     toBack:()->Unit={},
     onValueChange:(User)->Unit={},
     onRegisterClick:()->Unit={},
