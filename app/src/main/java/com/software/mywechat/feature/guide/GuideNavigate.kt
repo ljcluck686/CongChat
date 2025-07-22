@@ -6,6 +6,7 @@ import com.software.mywechat.ui.myComposable
 import com.software.mywechat.feature.guide.GuideRoute
 import com.software.mywechat.feature.main.MAIN_ROUTE
 import com.software.mywechat.feature.splash.SPLASH_ROUTE
+import com.software.mywechat.ui.MyAppUiState
 
 const val GUIDE_ROUTE = "guide"
 
@@ -19,11 +20,15 @@ fun NavController.navigationToGuide():Unit{
 }
 
 fun NavGraphBuilder.guideScreen(
+    appUiState : MyAppUiState,
     toMain: () -> Unit,
+    toLoginHome: () -> Unit,
 ): Unit {
     myComposable(GUIDE_ROUTE) {
         GuideRoute(
-            toMain = toMain
+            appUiState = appUiState,
+            toMain = toMain,
+            toLoginHome = toLoginHome,
         )
     }
 }

@@ -20,14 +20,17 @@ import com.software.mywechat.feature.addressbook.AddressBookRoute
 import com.software.mywechat.feature.discovery.DiscoveryRoute
 import com.software.mywechat.feature.splash.SplashRoute
 import com.software.mywechat.feature.me.MeRoute
+import com.software.mywechat.ui.MyAppUiState
 import kotlinx.coroutines.launch
 
 @Composable
 fun MainRoute(
+    appUiState: MyAppUiState,
     toLogin:()->Unit,
     toRegister:()->Unit,
 ){
     MainScreen(
+        appUiState=appUiState,
         toLogin = toLogin,
         toRegister = toRegister,
     )
@@ -37,6 +40,7 @@ fun MainRoute(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(
+    appUiState: MyAppUiState,
     toLogin:()->Unit={},
     toRegister:()->Unit={},
 ){
@@ -85,7 +89,7 @@ fun MainScreen(
                 0 -> SplashRoute()
                 1 -> AddressBookRoute()
                 2 -> DiscoveryRoute(toLogin)
-                3 -> MeRoute(toLogin,toRegister)
+                3 -> MeRoute(appUiState,toLogin,toRegister)
             }
         }
         MyNavigationBar(

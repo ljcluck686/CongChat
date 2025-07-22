@@ -9,6 +9,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.software.mywechat.feature.guide.GuideRoute
 import com.software.mywechat.feature.main.MAIN_ROUTE
+import com.software.mywechat.ui.MyAppUiState
 import com.software.mywechat.ui.myComposable
 import com.software.mywechat.util.CurrentActivityHolder
 
@@ -20,11 +21,13 @@ fun NavController.navigationToMe():Unit{
 
 
 fun NavGraphBuilder.meScreen(
+    appUiState: MyAppUiState,
     toLogin:()->Unit,
     toRegister:()->Unit,
 ): Unit {
     myComposable(ME_ROUTE) {
         MeRoute (
+            appUiState = appUiState,
             toLogin = toLogin,
             toRegister = toRegister,
         )

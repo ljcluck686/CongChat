@@ -1,5 +1,6 @@
 package com.software.mywechat.feature.guide
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,18 +17,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.layout.ContentScale
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.software.mywechat.ui.MyAppUiState
 
 @Composable
 fun GuideRoute(
+    appUiState : MyAppUiState,
     toMain:()->Unit,
+    toLoginHome:()->Unit,
 ){
     val viewModel:GuideViewModel = viewModel()
-    val navigateToMain by viewModel.navigateToMain.collectAsState()
-    val timeLeft by viewModel.timeLeft.collectAsState()
+    val navigateToNext by viewModel.navigateToNext.collectAsState()
+    val isLogin by appUiState.isLogin.collectAsState()
+    val userData by appUiState.userData.collectAsState()
     GuideScreen()
-    if(navigateToMain){
+    if(navigateToNext){
         LaunchedEffect(true) {
-            toMain()
+            Log.d("congcong", "GuideRoute: appUiState.isLogin.value")
+            if(isLogin){
+                toMain()
+            }
+            else{
+                toLoginHome()
+            }
         }
     }
 
@@ -35,7 +46,6 @@ fun GuideRoute(
 
 @Composable
 fun GuideScreen(
-    toMain:()->Unit={},
 ){
     Image(
         painter =  painterResource(id = R.drawable.bg_splash),
