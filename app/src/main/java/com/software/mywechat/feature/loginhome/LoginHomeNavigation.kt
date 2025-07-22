@@ -18,11 +18,13 @@ fun NavController.navigateToLoginHome() {
 
 fun NavGraphBuilder.loginHomeScreen(
     toLogin: () -> Unit ,
+    toRegister: () -> Unit ,
     finishAllLoginPages: () -> Unit ,
 ){
     myComposable(LOGIN_HOME_ROUTE){
         LoginHomeRoute(
             toLogin = toLogin,
+            toRegister = toRegister,
             finishAllLoginPages = finishAllLoginPages,
         )
     }

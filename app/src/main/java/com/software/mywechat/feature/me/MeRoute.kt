@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.software.mywechat.R
 import com.software.mywechat.core.design.theme.md_theme_light_arrow
 import com.software.mywechat.core.model.User
@@ -98,9 +99,9 @@ fun TopProfileSection(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Image(
-                painter = painterResource(id = R.mipmap.icon_address_book_m),
-                contentDescription = "Avatar",
+            AsyncImage(
+                model = "https://chan-xin.oss-cn-beijing.aliyuncs.com/chan_xin/image/1752555249209.jpg",
+                contentDescription = null,
                 modifier = Modifier
                     .size(64.dp),
                 contentScale = ContentScale.Crop

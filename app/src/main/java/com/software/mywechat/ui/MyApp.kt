@@ -61,6 +61,7 @@ fun MyApp(
         )
         loginHomeScreen(
             toLogin = navController::navigationToLogin,
+            toRegister = navController::navigationToRegister,
             finishAllLoginPages = navController::finishAllLoginPages
         )
     }

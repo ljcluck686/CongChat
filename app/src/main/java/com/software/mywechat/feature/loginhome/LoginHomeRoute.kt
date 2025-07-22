@@ -22,10 +22,12 @@ import com.software.mywechat.R
 @Composable
 fun LoginHomeRoute(
     toLogin: () -> Unit ,
+    toRegister:()->Unit,
     finishAllLoginPages: () -> Unit ,
 ){
     LoginHomeScreen(
         toLogin = toLogin,
+        toRegister = toRegister,
         finishAllLoginPages = finishAllLoginPages
     )
 }
@@ -34,6 +36,7 @@ fun LoginHomeRoute(
 @Composable
 fun LoginHomeScreen(
     toLogin: () -> Unit = {},
+    toRegister: () -> Unit = {},
     finishAllLoginPages: () -> Unit = {},
 ) {
     Box(modifier = Modifier.fillMaxSize()){
@@ -60,7 +63,7 @@ fun LoginHomeScreen(
                 Text(text = "登录")
             }
             Button(
-                onClick = toLogin,
+                onClick = toRegister,
                 modifier = Modifier
                     .weight(1f)
                     .height(50.dp)
