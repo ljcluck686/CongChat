@@ -18,11 +18,15 @@ fun NavController.finishAllLoginPages() {
 fun NavGraphBuilder.loginScreen(
     toBack: () -> Unit,
     toRegister: () -> Unit,
+    toMain: () -> Unit,
+    finishAllLoginPages: () -> Unit,
 ):Unit{
     myComposable(LOGIN_ROUTE){
         LoginRoute(
             toBack=toBack,
             toRegister=toRegister,
+            toMain = toMain,
+            finishAllLoginPages = finishAllLoginPages,
         )
     }
 }

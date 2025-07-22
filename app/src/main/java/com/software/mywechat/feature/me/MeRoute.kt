@@ -8,36 +8,38 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.software.mywechat.core.model.UserData
 import com.software.mywechat.ui.MyAppUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
 fun MeRoute(
-    appUiState: MyAppUiState,
-    toLogin:()->Unit,
-    toRegister:()->Unit,
+    toLoginHome:()->Unit,
+    viewModel: MeViewModel= hiltViewModel()
 ){
-    val isLogin by appUiState.isLogin.collectAsState()
-    val userData by appUiState.userData.collectAsState()
+    val isLogin by viewModel.isLogin.collectAsState()
+
     MeScreen(
-        isLogin = isLogin,
-        userData = userData,
-        toLogin = toLogin,
-        toRegister = toRegister,
+        loginOut=viewModel::loginOut,
     )
+    if(isLogin){
+        LaunchedEffect (true){
+            toLoginHome()
+        }
+    }
+
 }
 
 @Composable
 fun MeScreen(
-    isLogin: Boolean = false,
-    userData: UserData = UserData(),
-    toLogin:()->Unit={},
-    toRegister:()->Unit={},
+    loginOut:()->Unit={},
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -48,19 +50,11 @@ fun MeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = toLogin,
+                onClick = loginOut,
                 modifier = Modifier.padding(bottom = 8.dp)
             ) {
-                Text(text = "登录")
+                Text(text = "退出登录")
             }
-
-            Button(
-                onClick = toRegister,
-                modifier = Modifier.padding(bottom = 8.dp)
-            ) {
-                Text(text = "注册")
-            }
-
         }
     }
 }

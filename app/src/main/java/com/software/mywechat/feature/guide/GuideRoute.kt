@@ -28,7 +28,6 @@ fun GuideRoute(
     val viewModel:GuideViewModel = viewModel()
     val navigateToNext by viewModel.navigateToNext.collectAsState()
     val isLogin by appUiState.isLogin.collectAsState()
-    val userData by appUiState.userData.collectAsState()
     GuideScreen()
     if(navigateToNext){
         LaunchedEffect(true) {

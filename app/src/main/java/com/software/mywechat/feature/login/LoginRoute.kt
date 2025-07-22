@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -57,6 +58,8 @@ import com.software.mywechat.core.extension.clickableNoRipple
 fun LoginRoute(
     toBack: () -> Unit,
     toRegister: () -> Unit,
+    toMain: () -> Unit,
+    finishAllLoginPages:()->Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ){
     val uiState by viewModel.uiState.collectAsState()
@@ -66,6 +69,12 @@ fun LoginRoute(
         toRegister = toRegister,
         loginClick = viewModel::onLoginClick,
     )
+    if(uiState == LoginUiState.Success){
+        LaunchedEffect(true) {
+            toMain()
+//            finishAllLoginPages()
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -157,14 +166,14 @@ fun LoginScreen(
                             text = stringResource(id = R.string.forgot_password),
                         )
                     }
-                    when(val uiState = uiState){
-                        is LoginUiState.Success->{
-                            Text(text = "太棒了")
-                        }
-                        else ->{
-
-                        }
-                    }
+//                    when(val uiState = uiState){
+//                        is LoginUiState.Success->{
+//                            Text(text = "太棒了")
+//                        }
+//                        else ->{
+//
+//                        }
+//                    }
                 }
 
             }

@@ -35,6 +35,7 @@ fun MyApp(
             appUiState = appUiState,
             toLogin = navController::navigationToLogin,
             toRegister = navController::navigationToRegister,
+            toLoginHome = navController::navigateToLoginHome
         )
         splashScreen()
         addressBookScreen()
@@ -42,9 +43,7 @@ fun MyApp(
             toLogin = navController::navigationToLogin
         )
         meScreen(
-            appUiState = appUiState,
-            toLogin = navController::navigationToLogin,
-            toRegister = navController::navigationToRegister,
+            toLoginHome = navController::navigateToLoginHome
         )
         guideScreen(
             appUiState = appUiState,
@@ -53,7 +52,9 @@ fun MyApp(
         )
         loginScreen(
             toBack = navController::popBackStack,
-            toRegister = navController::navigationToRegister
+            toRegister = navController::navigationToRegister,
+            toMain = navController::navigationToMain,
+            finishAllLoginPages = navController::finishAllLoginPages
         )
         registerScreen(
             toBack = navController::popBackStack
