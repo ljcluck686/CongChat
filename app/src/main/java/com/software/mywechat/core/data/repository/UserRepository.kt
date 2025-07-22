@@ -1,7 +1,9 @@
 package com.software.mywechat.core.data.repository
 
+import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.Session
 import com.software.mywechat.core.model.User
+import com.software.mywechat.core.model.UserInfo
 import com.software.mywechat.core.model.response.NetworkResponse
 import com.software.mywechat.core.network.datasource.MyNetworkDataSource
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +33,7 @@ class UserRepository @Inject constructor(
 
     fun userInfo(
         authorization: String
-    ):Flow<NetworkResponse<User>> = flow{
+    ):Flow<NetworkResponse<Info>> = flow{
         emit(
             networkDataSource.userInfo(authorization)
         )

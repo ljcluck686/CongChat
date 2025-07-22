@@ -20,7 +20,7 @@ class RegisterViewModel @Inject constructor(
     private val userRepository: UserRepository
 ):ViewModel(){
 
-    private val _data = MutableStateFlow<User>(User("","","","","",0))
+    private val _data = MutableStateFlow<User>(User())
     val data : StateFlow<User> = _data
 
     fun onValueChange(param: User) {

@@ -2,9 +2,11 @@ package com.software.mywechat.core.network.datasource
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.software.mywechat.core.config.Config
+import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.response.NetworkResponse
 import com.software.mywechat.core.model.Session
 import com.software.mywechat.core.model.User
+import com.software.mywechat.core.model.UserInfo
 import com.software.mywechat.core.network.retrofit.MyNetworkApiService
 import kotlinx.serialization.json.Json
 import okhttp3.Call
@@ -36,7 +38,7 @@ class MyRetrofitDataSource @Inject constructor(
         return service.login(data)
     }
 
-    override suspend fun userInfo(authorization: String): NetworkResponse<User> {
+    override suspend fun userInfo(authorization: String): NetworkResponse<Info> {
         return service.userInfo(authorization)
     }
 }

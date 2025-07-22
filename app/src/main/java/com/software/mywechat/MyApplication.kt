@@ -44,7 +44,6 @@ class MyApplication: Application() {
 
     companion object {
         const val TAG = "congcong"
-
         lateinit var instance: MyApplication
     }
 }

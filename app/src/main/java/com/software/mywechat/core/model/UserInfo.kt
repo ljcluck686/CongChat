@@ -1,20 +1,15 @@
 package com.software.mywechat.core.model
 
-
 import com.software.app.core.datastore.UserPreferences
-import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 
-
-
 @Serializable
-data class User(
+data class UserInfo(
     val id: String = "",
     val phone:String ="",
-    val nickname:String="",
-    val password:String="",
-    var avatar:String="https://chan-xin.oss-cn-beijing.aliyuncs.com/chan_xin/image/1752318169872",
+    val nickname:String ="",
     val sex:Byte=0,
+    var avatar:String="https://chan-xin.oss-cn-beijing.aliyuncs.com/chan_xin/image/1752318169872",
 ){
 
 }
