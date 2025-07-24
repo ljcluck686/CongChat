@@ -115,7 +115,7 @@ fun TopProfileSection(
                     color = Color.Black
                 )
                 Text(
-                    text = "微信号: codeforces888",
+                    text = "微信号: ${data.phone}",
                     fontSize = 14.sp,
                     color = Color.Black
                 )

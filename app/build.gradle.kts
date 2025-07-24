@@ -103,6 +103,26 @@ dependencies {
     implementation("androidx.datastore:datastore:1.0.0")
 
     implementation(libs.protobuf.kotlin.lite)
+
+    //二维码生成扫描框架
+    //https://github.com/jenly1314/ZXingLite
+    implementation("com.github.jenly1314:zxing-lite:3.1.0")
+
+    //ML KIT,机器学习套件是一个移动 SDK，可将 Google 的设备端机器学习专业知识融入到 Android 和 iOS 应用中
+    //https://developers.google.com/ml-kit/vision/barcode-scanning/android?hl=zh-cn
+    implementation("com.google.mlkit:barcode-scanning:17.2.0")
+
+    //region emo框架
+    //提供很多功能,例如:图片选择,预览,网络状态监听等
+    //https://github.com/cgspine/emo-public
+    implementation(platform("cn.qhplus.emo:bom:2023.08.00"))
+
+    // 默认使用 coil 作为图片加载器
+    implementation("cn.qhplus.emo:photo-coil")
+    // 可选：如果需要使用其它库，则引入 photo 库，自定义实现 PhotoProvider 即可
+    implementation("cn.qhplus.emo:photo")
+    //endregion
+
 }
 
 //protobuf生成文件配置
