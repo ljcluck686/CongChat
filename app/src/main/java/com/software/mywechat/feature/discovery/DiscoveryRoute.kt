@@ -2,20 +2,25 @@ package com.software.mywechat.feature.discovery
 
 import android.content.ClipData.Item
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
+import androidx.compose.material.icons.filled.AddCircleOutline
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,10 +41,13 @@ import androidx.core.content.ContextCompat
 import com.software.mywechat.R
 import com.software.mywechat.core.design.component.MyCenterTopAppBar
 import com.software.mywechat.core.design.theme.CQDivider
+import com.software.mywechat.core.design.theme.SpaceExtraMediumHeight
 import com.software.mywechat.core.design.theme.SpaceExtraSmallHeight
 import com.software.mywechat.core.design.theme.SpaceMediumHeight
+import com.software.mywechat.core.design.theme.SpaceSmall
 import com.software.mywechat.core.design.theme.SpaceSmallHeight
 import com.software.mywechat.core.design.theme.md_theme_light_errorContainer
+import com.software.mywechat.core.design.theme.md_theme_light_outlineVariant
 
 
 @Composable
@@ -56,17 +64,49 @@ fun DiscoveryRoute(
 fun DiscoveryScreen(
     toLogin:()->Unit={},
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ){
-        LinerContent(R.mipmap.pengyouquan,R.string.pengyouquan)
-        SpaceSmallHeight()
-        LinerContent(R.mipmap.shipinhao,R.string.shipinhao)
-        CQDivider()
-        LinerContent(R.mipmap.saoyisao,R.string.saoyisao,toLogin)
+    Scaffold(
+        topBar = {
+            MyCenterTopAppBar(
+                title = "发现",
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = ""
+                        )
+                    }
+                    IconButton(onClick = {  }) {
+                        Icon(
+                            imageVector = Icons.Default.AddCircleOutline,
+                            contentDescription = ""
+                        )
+                    }
+                },
+                colors = TopAppBarColors(
+                    containerColor = md_theme_light_errorContainer,
+                    scrolledContainerColor = md_theme_light_errorContainer,
+                    navigationIconContentColor = md_theme_light_errorContainer,
+                    titleContentColor = Color.Black,
+                    actionIconContentColor =  Color.Black
+                )
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .background(md_theme_light_outlineVariant),
+//            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ){
+            LinerContent(R.mipmap.pengyouquan,R.string.pengyouquan)
+            SpaceExtraMediumHeight()
+            LinerContent(R.mipmap.shipinhao,R.string.shipinhao)
+            CQDivider()
+            LinerContent(R.mipmap.saoyisao,R.string.saoyisao,toLogin)
+
+        }
+
     }
 }
 
@@ -79,12 +119,14 @@ fun LinerContent(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = toLogin),
+            .height(60.dp)
+            .clickable(onClick = toLogin)
+            .background(Color.White),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
             modifier = Modifier
-                .size(25.dp)
+                .size(35.dp)
         ) {
             Image(
                 painter = painterResource(id = iconLeft),
@@ -106,8 +148,8 @@ fun LinerContent(
         Icon(
             Icons.Default.ChevronRight,
             contentDescription = null,
-            modifier = Modifier.size(20.dp),
-            tint = Color.Black
+            modifier = Modifier.size(35.dp),
+            tint = Color.Gray
         )
     }
 }
