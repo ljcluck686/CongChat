@@ -39,5 +39,13 @@ class UserRepository @Inject constructor(
         )
     }.flowOn(Dispatchers.IO)
 
+    fun getFriendList(
+        userId:String
+    ):Flow<NetworkResponse<Info>> = flow {
+        emit(
+            networkDataSource.getFriendList(userId)
+        )
+    }.flowOn(Dispatchers.IO)
+
 
 }

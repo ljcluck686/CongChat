@@ -1,6 +1,6 @@
 package com.software.mywechat.core.model
 
-import com.software.app.core.datastore.UserPreferences
+
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,6 +10,7 @@ data class UserInfo(
     val nickname:String ="",
     val sex:Byte=0,
     var avatar:String="https://chan-xin.oss-cn-beijing.aliyuncs.com/chan_xin/image/1752318169872",
+    val state:FriendStatusInfo = FriendStatusInfo()
 ){
 
 }

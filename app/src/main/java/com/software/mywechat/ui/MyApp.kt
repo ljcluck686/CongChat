@@ -17,6 +17,8 @@ import com.software.mywechat.feature.main.MAIN_ROUTE
 import com.software.mywechat.feature.main.mainScreen
 import com.software.mywechat.feature.main.navigationToMain
 import com.software.mywechat.feature.me.meScreen
+import com.software.mywechat.feature.newfriend.navigationToNewFriend
+import com.software.mywechat.feature.newfriend.newFriendScreen
 import com.software.mywechat.feature.register.navigationToRegister
 import com.software.mywechat.feature.register.registerScreen
 import com.software.mywechat.feature.splash.splashScreen
@@ -35,10 +37,13 @@ fun MyApp(
             appUiState = appUiState,
             toLogin = navController::navigationToLogin,
             toRegister = navController::navigationToRegister,
-            toLoginHome = navController::navigateToLoginHome
+            toLoginHome = navController::navigateToLoginHome,
+            toNewFriend = navController::navigationToNewFriend,
         )
         splashScreen()
-        addressBookScreen()
+        addressBookScreen(
+            toNewFriend = navController::navigationToNewFriend
+        )
         discoveryScreen(
             toLogin = navController::navigationToLogin
         )
@@ -63,6 +68,9 @@ fun MyApp(
             toLogin = navController::navigationToLogin,
             toRegister = navController::navigationToRegister,
             finishAllLoginPages = navController::finishAllLoginPages
+        )
+        newFriendScreen(
+            toBack = navController::popBackStack
         )
     }
 }

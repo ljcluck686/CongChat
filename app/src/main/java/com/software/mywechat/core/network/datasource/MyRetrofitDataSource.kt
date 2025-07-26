@@ -30,6 +30,8 @@ class MyRetrofitDataSource @Inject constructor(
         .build()
         .create(MyNetworkApiService::class.java)
 
+
+
     override suspend fun register(data: User): NetworkResponse<Session> {
         return service.register(data)
     }
@@ -40,5 +42,9 @@ class MyRetrofitDataSource @Inject constructor(
 
     override suspend fun userInfo(authorization: String): NetworkResponse<Info> {
         return service.userInfo(authorization)
+    }
+
+    override suspend fun getFriendList(userId: String): NetworkResponse<Info> {
+        return service.getFriendList(userId)
     }
 }

@@ -19,4 +19,8 @@ interface MyNetworkDataSource {
         authorization: String
     ):NetworkResponse<Info>
 
+    suspend fun getFriendList(
+        userId:String
+    ):NetworkResponse<Info>
+
 }

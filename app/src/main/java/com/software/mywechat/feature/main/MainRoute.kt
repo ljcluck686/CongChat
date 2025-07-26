@@ -29,12 +29,14 @@ fun MainRoute(
     toLogin:()->Unit,
     toRegister:()->Unit,
     toLoginHome:()->Unit,
+    toNewFriend:()->Unit,
 ){
     MainScreen(
         appUiState=appUiState,
         toLogin = toLogin,
         toRegister = toRegister,
         toLoginHome = toLoginHome,
+        toNewFriend = toNewFriend,
     )
 }
 
@@ -46,6 +48,7 @@ fun MainScreen(
     toLogin:()->Unit={},
     toRegister:()->Unit={},
     toLoginHome:()->Unit={},
+    toNewFriend:()->Unit={},
 ){
     var currentDestination by rememberSaveable() {
         mutableStateOf(BottomLevelDestination.SPLASH.route)
@@ -54,24 +57,24 @@ fun MainScreen(
     val scope = rememberCoroutineScope()
 
 
-    val topLevelDestination = when (currentDestination) {
-        BottomLevelDestination.SPLASH.route -> TopLevelDestination.SPLASH
-        BottomLevelDestination.ADDRESS_BOOK.route -> TopLevelDestination.ADDRESS_BOOK
-        BottomLevelDestination.DISCOVERY.route -> TopLevelDestination.DISCOVERY
-        else -> null
-    }
+//    val topLevelDestination = when (currentDestination) {
+//        BottomLevelDestination.SPLASH.route -> TopLevelDestination.SPLASH
+//        BottomLevelDestination.ADDRESS_BOOK.route -> TopLevelDestination.ADDRESS_BOOK
+//        BottomLevelDestination.DISCOVERY.route -> TopLevelDestination.DISCOVERY
+//        else -> null
+//    }
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        if (topLevelDestination != null) {
-            MyTopAppBar(
-                currentDestination = topLevelDestination,
-                onSearchClick = {  },
-                onAddClick = { },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+//        if (topLevelDestination != null) {
+//            MyTopAppBar(
+//                currentDestination = topLevelDestination,
+//                onSearchClick = {  },
+//                onAddClick = { },
+//                modifier = Modifier.fillMaxWidth()
+//            )
+//        }
 
         val pagerState = rememberPagerState{
             BottomLevelDestination.entries.size
@@ -90,7 +93,9 @@ fun MainScreen(
         ) { page ->
             when(page){
                 0 -> SplashRoute()
-                1 -> AddressBookRoute()
+                1 -> AddressBookRoute(
+                    toNewFriend = toNewFriend,
+                )
                 2 -> DiscoveryRoute(toLogin)
                 3 -> MeRoute(
                     toLoginHome  = toLoginHome

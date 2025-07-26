@@ -9,6 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface MyNetworkApiService {
     @POST("v1/user/register")
@@ -25,5 +26,11 @@ interface MyNetworkApiService {
     suspend fun userInfo(
         @Header("Authorization") authorization: String
     ): NetworkResponse<Info>
+
+    @GET("v1/social/firend/getFriendList")
+    suspend fun getFriendList(
+        @Query("user_id") userId:String
+    ): NetworkResponse<Info>
+
 
 }
