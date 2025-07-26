@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.software.mywechat.core.data.repository.UserDataRepository
+import com.software.mywechat.feature.addFriend.addFriendScreen
+import com.software.mywechat.feature.addFriend.navigationToAddFriend
 import com.software.mywechat.feature.addressbook.addressBookScreen
 import com.software.mywechat.feature.discovery.discoveryScreen
 import com.software.mywechat.feature.guide.GUIDE_ROUTE
@@ -21,6 +23,8 @@ import com.software.mywechat.feature.newfriend.navigationToNewFriend
 import com.software.mywechat.feature.newfriend.newFriendScreen
 import com.software.mywechat.feature.register.navigationToRegister
 import com.software.mywechat.feature.register.registerScreen
+import com.software.mywechat.feature.search.navigationToSearch
+import com.software.mywechat.feature.search.searchScreen
 import com.software.mywechat.feature.splash.splashScreen
 
 
@@ -70,6 +74,14 @@ fun MyApp(
             finishAllLoginPages = navController::finishAllLoginPages
         )
         newFriendScreen(
+            toBack = navController::popBackStack,
+            toAddFriend = navController::navigationToAddFriend
+        )
+        addFriendScreen(
+            toBack = navController::popBackStack,
+            toSearch = navController::navigationToSearch
+        )
+        searchScreen(
             toBack = navController::popBackStack
         )
     }

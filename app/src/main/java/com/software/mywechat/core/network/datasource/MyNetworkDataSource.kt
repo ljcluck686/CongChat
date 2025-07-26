@@ -1,10 +1,13 @@
 package com.software.mywechat.core.network.datasource
 
+import com.software.mywechat.core.model.FriendApplyRequest
+import com.software.mywechat.core.model.FriendApplyResponse
 import com.software.mywechat.core.model.Info
+import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.response.NetworkResponse
 import com.software.mywechat.core.model.Session
 import com.software.mywechat.core.model.User
-import com.software.mywechat.core.model.UserInfo
+
 
 interface MyNetworkDataSource {
     suspend fun register(
@@ -22,5 +25,15 @@ interface MyNetworkDataSource {
     suspend fun getFriendList(
         userId:String
     ):NetworkResponse<Info>
+
+    suspend fun applyFriend(
+        data: FriendApplyRequest
+    ):NetworkResponse<FriendApplyResponse>
+
+    suspend fun findUser(
+        name: String = "点",
+        phone: String = "1",
+        ids: String = "1"
+    ):NetworkResponse<Infos>
 
 }

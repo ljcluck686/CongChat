@@ -1,6 +1,9 @@
 package com.software.mywechat.core.network.retrofit
 
+import com.software.mywechat.core.model.FriendApplyRequest
+import com.software.mywechat.core.model.FriendApplyResponse
 import com.software.mywechat.core.model.Info
+import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.response.NetworkResponse
 import com.software.mywechat.core.model.Session
 import com.software.mywechat.core.model.User
@@ -27,10 +30,21 @@ interface MyNetworkApiService {
         @Header("Authorization") authorization: String
     ): NetworkResponse<Info>
 
+    @GET("v1/user/findUser")
+    suspend fun findUser(
+        @Query("name") name:String ="点",
+        @Query("phone") phone:String="1",
+        @Query("ids") ids:String ="1"
+    ): NetworkResponse<Infos>
+
     @GET("v1/social/firend/getFriendList")
     suspend fun getFriendList(
         @Query("user_id") userId:String
     ): NetworkResponse<Info>
 
+    @POST("v1/social/firend/applyFriend")
+    suspend fun applyFriend(
+        @Body data:FriendApplyRequest
+    ):NetworkResponse<FriendApplyResponse>
 
 }

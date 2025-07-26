@@ -2,7 +2,6 @@ package com.software.mywechat.feature.newfriend
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import com.software.mywechat.feature.addressbook.AddressBookRoute
 import com.software.mywechat.ui.myComposable
 
 const val NEW_FRIEND_ROUTE = "new_friend"
@@ -13,10 +12,12 @@ fun NavController.navigationToNewFriend():Unit{
 
 fun NavGraphBuilder.newFriendScreen(
     toBack:()->Unit,
+    toAddFriend:()->Unit,
 ): Unit {
     myComposable(NEW_FRIEND_ROUTE) {
         NewFriendRoute(
-            toBack = toBack
+            toBack = toBack,
+            toAddFriend = toAddFriend,
         )
     }
 }

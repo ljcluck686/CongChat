@@ -1,6 +1,7 @@
 package com.software.mywechat.core.data.repository
 
 import com.software.mywechat.core.model.Info
+import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.Session
 import com.software.mywechat.core.model.User
 import com.software.mywechat.core.model.UserInfo
@@ -44,6 +45,16 @@ class UserRepository @Inject constructor(
     ):Flow<NetworkResponse<Info>> = flow {
         emit(
             networkDataSource.getFriendList(userId)
+        )
+    }.flowOn(Dispatchers.IO)
+
+    fun findUser(
+        name: String = "点",
+        phone: String = "1",
+        ids: String = "1"
+    ):Flow<NetworkResponse<Infos>> = flow {
+        emit(
+            networkDataSource.findUser(name, phone, ids)
         )
     }.flowOn(Dispatchers.IO)
 

@@ -20,9 +20,11 @@ import com.software.mywechat.feature.addressbook.AddressBookScreen
 @Composable
 fun NewFriendRoute(
     toBack: () -> Unit,
+    toAddFriend: () -> Unit,
 ) {
     NewFriendScreen(
         toBack = toBack,
+        toAddFriend = toAddFriend,
     )
 }
 
@@ -30,7 +32,7 @@ fun NewFriendRoute(
 @Composable
 fun NewFriendScreen(
     toBack: () -> Unit = {},
-    toAddFriend: () -> Unit = {}
+    toAddFriend: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -40,7 +42,7 @@ fun NewFriendScreen(
                 actions = {
                     Text(
                         text = "添加朋友",
-                        Modifier.clickable(onClick = {})
+                        Modifier.clickable(onClick = toAddFriend)
                     )
                 }
             )

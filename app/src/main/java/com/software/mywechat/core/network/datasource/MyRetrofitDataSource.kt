@@ -2,7 +2,10 @@ package com.software.mywechat.core.network.datasource
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.software.mywechat.core.config.Config
+import com.software.mywechat.core.model.FriendApplyRequest
+import com.software.mywechat.core.model.FriendApplyResponse
 import com.software.mywechat.core.model.Info
+import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.response.NetworkResponse
 import com.software.mywechat.core.model.Session
 import com.software.mywechat.core.model.User
@@ -31,7 +34,6 @@ class MyRetrofitDataSource @Inject constructor(
         .create(MyNetworkApiService::class.java)
 
 
-
     override suspend fun register(data: User): NetworkResponse<Session> {
         return service.register(data)
     }
@@ -46,5 +48,17 @@ class MyRetrofitDataSource @Inject constructor(
 
     override suspend fun getFriendList(userId: String): NetworkResponse<Info> {
         return service.getFriendList(userId)
+    }
+
+    override suspend fun applyFriend(data: FriendApplyRequest): NetworkResponse<FriendApplyResponse> {
+        return service.applyFriend(data)
+    }
+
+    override suspend fun findUser(
+        name:String ,
+        phone:String,
+        ids:String ,
+    ): NetworkResponse<Infos>  {
+        return service.findUser(name,phone,ids)
     }
 }
