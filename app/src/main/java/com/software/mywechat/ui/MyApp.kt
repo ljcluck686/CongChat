@@ -26,6 +26,8 @@ import com.software.mywechat.feature.register.registerScreen
 import com.software.mywechat.feature.search.navigationToSearch
 import com.software.mywechat.feature.search.searchScreen
 import com.software.mywechat.feature.splash.splashScreen
+import com.software.mywechat.feature.userdetail.navigationToUserDetail
+import com.software.mywechat.feature.userdetail.userDetailScreen
 
 
 @Composable
@@ -82,6 +84,10 @@ fun MyApp(
             toSearch = navController::navigationToSearch
         )
         searchScreen(
+            toBack = navController::popBackStack,
+            toUserDetail = navController::navigationToUserDetail,
+        )
+        userDetailScreen(
             toBack = navController::popBackStack
         )
     }

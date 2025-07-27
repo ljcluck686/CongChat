@@ -12,10 +12,12 @@ fun NavController.navigationToSearch():Unit{
 
 fun NavGraphBuilder.searchScreen(
     toBack:()->Unit,
+    toUserDetail:(String)->Unit,
 ): Unit {
     myComposable(SEARCH_ROUTE) {
         SearchRoute(
-            toBack = toBack
+            toBack = toBack,
+            toUserDetail =toUserDetail,
         )
     }
 }

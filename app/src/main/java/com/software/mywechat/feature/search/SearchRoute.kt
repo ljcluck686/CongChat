@@ -56,6 +56,7 @@ import com.software.mywechat.core.model.User
 @Composable
 fun SearchRoute(
     toBack: () -> Unit,
+    toUserDetail: (String) -> Unit,
     viewModel: SearchViewModel = hiltViewModel()
 ){
     val datum by viewModel.datum.collectAsState()
@@ -68,6 +69,7 @@ fun SearchRoute(
         placeholder = placeholder,
         onQueryChange = viewModel::onQueryChange,
         onSearchClick = viewModel::onSearchClick,
+        toUserDetail =toUserDetail ,
     )
 }
 
@@ -79,6 +81,7 @@ fun SearchScreen(
     onQueryChange: (String) -> Unit = {},
     onSearchClick: () -> Unit = {},
     toBack: () -> Unit = {},
+    toUserDetail: (String) -> Unit={},
 ){
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -100,7 +103,9 @@ fun SearchScreen(
             modifier = Modifier.padding(paddingValues).background(md_theme_light_outlineVariant)
         ) {
             items(datum.infos) { info ->
-                LinerContent(info = info)
+                LinerContent(
+                    info = info ,toUserDetail = toUserDetail
+                )
             }
         }
 
@@ -111,12 +116,15 @@ fun SearchScreen(
 @Composable
 fun LinerContent(
     info: User,
+    toUserDetail:(String)->Unit={},
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 12.dp, horizontal = 16.dp)
-            .clickable(onClick = {}),
+            .clickable(onClick = {
+                toUserDetail(info.id)
+            }),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
