@@ -1,5 +1,7 @@
 package com.software.mywechat.core.data.repository
 
+import com.software.mywechat.core.model.FriendApplyRequest
+import com.software.mywechat.core.model.FriendApplyResponse
 import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.Session
@@ -58,5 +60,12 @@ class UserRepository @Inject constructor(
         )
     }.flowOn(Dispatchers.IO)
 
+    fun applyFriend(
+        data:FriendApplyRequest
+    ):Flow<NetworkResponse<FriendApplyResponse>> = flow{
+        emit(
+            networkDataSource.applyFriend(data)
+        )
+    }.flowOn(Dispatchers.IO)
 
 }

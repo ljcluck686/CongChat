@@ -50,12 +50,14 @@ import com.software.mywechat.core.model.User
 @Composable
 fun UserDetailRoute(
     toBack:()->Unit,
+    toApplyFriend:(String)->Unit,
     viewModel:UserDetailViewModel = hiltViewModel()
 ){
     val data by viewModel.data.collectAsState()
     UserDetailScreen(
         data = data,
         toBack = toBack,
+        toApplyFriend = toApplyFriend,
     )
 }
 
@@ -64,6 +66,7 @@ fun UserDetailRoute(
 fun UserDetailScreen(
     data : User,
     toBack: () -> Unit={},
+    toApplyFriend: (String) -> Unit={},
 ) {
     Scaffold(
         topBar = {
@@ -183,7 +186,9 @@ fun UserDetailScreen(
                     .height(80.dp)
                     .fillMaxWidth()
                     .background(Color.White)
-                    .clickable(onClick = {}),
+                    .clickable(onClick = {
+                        toApplyFriend(data.id)
+                    }),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ){
