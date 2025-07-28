@@ -78,4 +78,12 @@ class UserRepository @Inject constructor(
         )
     }.flowOn(Dispatchers.IO)
 
+    fun getHandleFriendApplyList(
+        targetId:String
+    ):Flow<NetworkResponse<DataListWrapper>> = flow {
+        emit(
+            networkDataSource.getHandleFriendApplyList(targetId)
+        )
+    }.flowOn(Dispatchers.IO)
+
 }

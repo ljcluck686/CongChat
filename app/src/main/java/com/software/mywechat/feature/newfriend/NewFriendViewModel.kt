@@ -2,10 +2,12 @@ package com.software.mywechat.feature.newfriend
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.software.mywechat.MyAppState
 import com.software.mywechat.core.data.repository.UserRepository
 import com.software.mywechat.core.model.DataListWrapper
 import com.software.mywechat.core.model.FriendApplyResp
+import com.software.mywechat.core.network.retrofit.MyNetworkApiService
 import com.software.mywechat.core.result.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,8 +30,17 @@ class NewFriendViewModel @Inject constructor(
     }
 
     private fun loadData() {
+//        viewModelScope.launch {
+//            userRepository.getFriendApplyList(MyAppState.userId)
+//                .asResult()
+//                .collectLatest {
+//                    if (it.isSuccess) {
+//                        _datum.emit(it.getOrNull()?.data!!)
+//                    }
+//                }
+//        }
         viewModelScope.launch {
-            userRepository.getFriendApplyList(MyAppState.userId)
+            userRepository.getHandleFriendApplyList(MyAppState.userId)
                 .asResult()
                 .collectLatest {
                     if(it.isSuccess){
@@ -37,6 +48,7 @@ class NewFriendViewModel @Inject constructor(
                     }
                 }
         }
+
     }
 
 

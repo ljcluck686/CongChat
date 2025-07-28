@@ -67,4 +67,8 @@ class MyRetrofitDataSource @Inject constructor(
     override suspend fun getFriendApplyList(userId: String): NetworkResponse<DataListWrapper> {
         return service.getFriendApplyList(userId)
     }
+
+    override suspend fun getHandleFriendApplyList(targetId: String): NetworkResponse<DataListWrapper> {
+        return service.getHandleFriendApplyList(targetId)
+    }
 }

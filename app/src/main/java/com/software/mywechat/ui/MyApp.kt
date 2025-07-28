@@ -79,7 +79,8 @@ fun MyApp(
         )
         newFriendScreen(
             toBack = navController::popBackStack,
-            toAddFriend = navController::navigationToAddFriend
+            toAddFriend = navController::navigationToAddFriend,
+            toSearch = navController::navigationToSearch,
         )
         addFriendScreen(
             toBack = navController::popBackStack,

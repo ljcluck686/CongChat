@@ -54,4 +54,9 @@ interface MyNetworkApiService {
         @Query("user_id") userId: String
     ):NetworkResponse<DataListWrapper>
 
+    @GET("v1/social/firend/getHandleFriendApplyList")
+    suspend fun getHandleFriendApplyList(
+        @Query("targetId") targetId:String
+    ):NetworkResponse<DataListWrapper>
+
 }

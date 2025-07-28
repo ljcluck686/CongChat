@@ -42,5 +42,8 @@ interface MyNetworkDataSource {
         userId:String
     ):NetworkResponse<DataListWrapper>
 
+    suspend fun getHandleFriendApplyList(
+        targetId:String
+    ):NetworkResponse<DataListWrapper>
 
 }

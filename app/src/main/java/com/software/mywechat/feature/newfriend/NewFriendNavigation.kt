@@ -13,11 +13,13 @@ fun NavController.navigationToNewFriend():Unit{
 fun NavGraphBuilder.newFriendScreen(
     toBack:()->Unit,
     toAddFriend:()->Unit,
+    toSearch:()->Unit,
 ): Unit {
     myComposable(NEW_FRIEND_ROUTE) {
         NewFriendRoute(
             toBack = toBack,
             toAddFriend = toAddFriend,
+            toSearch = toSearch,
         )
     }
 }
