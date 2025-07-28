@@ -1,6 +1,8 @@
 package com.software.mywechat.core.network.retrofit
 
+import com.software.mywechat.core.model.DataListWrapper
 import com.software.mywechat.core.model.FriendApplyRequest
+import com.software.mywechat.core.model.FriendApplyResp
 import com.software.mywechat.core.model.FriendApplyResponse
 import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.Infos
@@ -46,5 +48,10 @@ interface MyNetworkApiService {
     suspend fun applyFriend(
         @Body data:FriendApplyRequest
     ):NetworkResponse<FriendApplyResponse>
+
+    @GET("v1/social/firend/getFriendApplyList")
+    suspend fun getFriendApplyList(
+        @Query("user_id") userId: String
+    ):NetworkResponse<DataListWrapper>
 
 }

@@ -1,6 +1,8 @@
 package com.software.mywechat.core.network.datasource
 
+import com.software.mywechat.core.model.DataListWrapper
 import com.software.mywechat.core.model.FriendApplyRequest
+import com.software.mywechat.core.model.FriendApplyResp
 import com.software.mywechat.core.model.FriendApplyResponse
 import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.Infos
@@ -35,5 +37,10 @@ interface MyNetworkDataSource {
         phone: String = "1",
         ids: String = "1"
     ):NetworkResponse<Infos>
+
+    suspend fun getFriendApplyList(
+        userId:String
+    ):NetworkResponse<DataListWrapper>
+
 
 }

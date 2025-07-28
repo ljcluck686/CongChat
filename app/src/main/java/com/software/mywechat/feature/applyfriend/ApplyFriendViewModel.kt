@@ -50,7 +50,7 @@ class ApplyFriendViewModel @Inject  constructor(
         viewModelScope.launch {
 
             userRepository.applyFriend(FriendApplyRequest(
-                applicantId = MyAppState.userId, targetId = userId, greetMsg = msg
+                applicantId = userId, targetId = MyAppState.userId, greetMsg = msg
             ))
                 .asResult()
                 .collectLatest {

@@ -21,7 +21,9 @@ import com.software.mywechat.feature.addressbook.AddressBookScreen
 fun NewFriendRoute(
     toBack: () -> Unit,
     toAddFriend: () -> Unit,
+    viewModel: NewFriendViewModel = hiltViewModel()
 ) {
+    val datum by viewModel.datum.collectAsState()
     NewFriendScreen(
         toBack = toBack,
         toAddFriend = toAddFriend,
@@ -51,7 +53,7 @@ fun NewFriendScreen(
         Column(
             modifier = Modifier.padding(paddingValues)
         ) {
-            Text("新的朋友")
+
         }
     }
 }
