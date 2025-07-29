@@ -8,4 +8,5 @@ message UserDataPreferences {
 
   SessionPreferences session = 1;
   UserPreferences user = 2;
+  string localAvatarPath = 3;
 }

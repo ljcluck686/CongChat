@@ -21,4 +21,12 @@ class LocalUserDataRepository @Inject constructor(
     override suspend fun logout() {
         myPreferencesDatasource.logout()
     }
+
+    override suspend fun saveAvatarPathToSp(path: String) {
+        myPreferencesDatasource.setLocalAvatarPath(path)
+    }
+
+    override fun getLocalAvatarPath(): Flow<String?> {
+        return myPreferencesDatasource.getLocalAvatarPath()
+    }
 }

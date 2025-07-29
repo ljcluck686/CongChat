@@ -2,8 +2,6 @@ package com.software.mywechat.feature.me
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,35 +12,38 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.QrCode
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImage
 import com.software.mywechat.MyAppState
-import com.software.mywechat.R
 import com.software.mywechat.core.design.theme.md_theme_light_arrow
 import com.software.mywechat.core.extension.clickableNoRipple
-import com.software.mywechat.core.model.User
 import com.software.mywechat.core.model.UserInfo
+import com.software.mywechat.util.ImageUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.File
 
 @Composable
 fun MeRoute(
@@ -52,8 +53,10 @@ fun MeRoute(
 ){
     val isLogin by viewModel.isLogin.collectAsState()
     val data by viewModel.data.collectAsState()
+    val avatarPath by viewModel.avatarPathFlow.collectAsState(initial = null)
     MeScreen(
         data = data,
+        avatarPath = avatarPath,
         loginOut=viewModel::loginOut,
         toProfile = toProfile,
     )
@@ -69,6 +72,7 @@ fun MeRoute(
 @Composable
 fun MeScreen(
     data: UserInfo,
+    avatarPath: String?,
     loginOut: () -> Unit = {},
     toProfile: () -> Unit = {},
 ) {
@@ -80,6 +84,7 @@ fun MeScreen(
         ) {
             TopProfileSection(
                 data = data,
+                avatarPath = avatarPath,
                 toProfile = toProfile,
             )
             Button(
@@ -95,6 +100,7 @@ fun MeScreen(
 @Composable
 fun TopProfileSection(
     data: UserInfo,
+    avatarPath: String?,
     toProfile:()->Unit,
 ) {
     Column(
@@ -109,13 +115,7 @@ fun TopProfileSection(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            AsyncImage(
-                model = "https://chan-xin.oss-cn-beijing.aliyuncs.com/chan_xin/image/1752555249209.jpg",
-                contentDescription = null,
-                modifier = Modifier
-                    .size(64.dp),
-                contentScale = ContentScale.Crop
-            )
+            AvatarImage(avatarPath = avatarPath)
             Spacer(modifier = Modifier.width(12.dp))
             Column {
                 Text(
@@ -139,26 +139,65 @@ fun TopProfileSection(
             )
         }
         Spacer(modifier = Modifier.height(15.dp))
-//        Row(
-//            modifier = Modifier.padding(start = 60.dp, bottom = 8.dp),
-//            horizontalArrangement = Arrangement.spacedBy(8.dp)
-//        ) {
-//            OutlinedButton(
-//                onClick = {  },
-//                modifier = Modifier.height(32.dp)
-//            ) {
-//                Text(text = "+ 状态", fontSize = 12.sp)
-//            }
-//            IconButton(
-//                onClick = {  },
-//                modifier = Modifier.size(32.dp)
-//            ) {
-//                Icon(
-//                    imageVector = Icons.Default.Refresh,
-//                    contentDescription = "Refresh",
-//                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-//                )
-//            }
-//        }
+    }
+}
+
+@Composable
+fun AvatarImage(avatarPath: String?) {
+    val context = LocalContext.current
+    // 存储加载后的bitmap，使用remember确保重组时不重复加载
+    var bitmap by remember { mutableStateOf<android.graphics.Bitmap?>(null) }
+    var isLoading by remember { mutableStateOf(false) }
+
+    LaunchedEffect(avatarPath) {
+        if (avatarPath.isNullOrEmpty()) {
+            bitmap = null
+            return@LaunchedEffect
+        }
+        isLoading = true
+        val result = withContext(Dispatchers.IO) {
+            try {
+                val fileName = File(avatarPath).name
+                ImageUtils.loadLocalImage(context, fileName)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
+        bitmap = result
+        isLoading = false
+    }
+
+    when {
+        isLoading -> {
+            Box(
+                modifier = Modifier
+                    .size(120.dp)
+                    .background(Color.LightGray),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "加载中", fontSize = 12.sp)
+            }
+        }
+        bitmap != null -> {
+            Image(
+                bitmap = bitmap!!.asImageBitmap(),
+                contentDescription = "用户头像",
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(RoundedCornerShape(20.dp))
+            )
+        }
+        else -> {
+            Box(
+                modifier = Modifier
+                    .size(45.dp)
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(Color.LightGray),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "默认", fontSize = 14.sp)
+            }
+        }
     }
 }

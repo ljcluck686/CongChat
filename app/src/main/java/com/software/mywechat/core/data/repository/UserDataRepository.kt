@@ -10,4 +10,6 @@ interface UserDataRepository {
     suspend fun setSession(data: SessionPreferences?)
     suspend fun setUser(data: UserPreferences?)
     suspend fun logout()
+    suspend fun saveAvatarPathToSp(path: String)
+    fun getLocalAvatarPath(): Flow<String?>
 }

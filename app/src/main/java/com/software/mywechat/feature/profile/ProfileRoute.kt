@@ -38,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cn.qhplus.emo.photo.activity.PhotoPickerActivity
 import cn.qhplus.emo.photo.activity.getPhotoPickResult
 import cn.qhplus.emo.photo.coil.CoilMediaPhotoProviderFactory
@@ -47,6 +48,7 @@ import com.software.mywechat.core.design.component.MyCenterTopAppBar
 import com.software.mywechat.core.design.theme.CQDivider
 import com.software.mywechat.core.design.theme.md_theme_light_errorContainer
 import com.software.mywechat.core.model.UserInfo
+import com.software.mywechat.feature.me.AvatarImage
 import com.software.mywechat.ui.MyApp
 
 @Composable
@@ -55,12 +57,14 @@ fun ProfileRoute(
     toFixName:()->Unit,
     viewModel: ProfileViewModel = hiltViewModel()
 ){
+    val avatarPathFlow by viewModel.avatarPathFlow.collectAsStateWithLifecycle("")
     val context = LocalContext.current
     val pickLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
     val data by viewModel.data.collectAsState()
     ProfileScreen(
         data = data,
+        avatarPathFlow = avatarPathFlow,
         toBack = toBack,
         toFixName = toFixName,
         onSelectImageClick = {
@@ -80,6 +84,7 @@ fun ProfileRoute(
 @Composable
 fun ProfileScreen(
     data:UserInfo,
+    avatarPathFlow:String?,
     toBack: () -> Unit={},
     toFixName: () -> Unit = {},
     onSelectImageClick: () -> Unit = {},
@@ -118,7 +123,7 @@ fun ProfileScreen(
                         .padding(start = 15.dp)
                         .weight(1f)
                 )
-
+                AvatarImage(avatarPath = avatarPathFlow)
                 Icon(
                     Icons.Default.ChevronRight,
                     contentDescription = null,

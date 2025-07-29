@@ -1,5 +1,6 @@
 package com.software.mywechat.feature.me
 
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,11 +15,14 @@ import com.software.mywechat.core.model.User
 import com.software.mywechat.core.model.UserInfo
 import com.software.mywechat.core.model.response.NetworkResponse
 import com.software.mywechat.core.result.asResult
+import com.software.mywechat.util.ImageUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.io.File
 import java.lang.Thread.State
 import javax.inject.Inject
 
@@ -38,6 +42,12 @@ class MeViewModel @Inject constructor(
     private val _data = MutableStateFlow<UserInfo>(UserInfo())
     val data : StateFlow<UserInfo> = _data
 
+    val avatarPathFlow: Flow<String?> = userDataRepository.getLocalAvatarPath()
+
+    fun loadLocalAvatar(path: String?): Bitmap? {
+        if (path.isNullOrEmpty()) return null
+        return ImageUtils.loadLocalImage(MyAppState.applicationContext, File(path).name)
+    }
 //    init {
 //        loadData()
 //        Log.d("congcong", "${_data.value.nickname} ")
