@@ -34,6 +34,7 @@ fun NavGraphBuilder.mainScreen(
     toRegister:()->Unit,
     toLoginHome:()->Unit,
     toNewFriend:()->Unit,
+    toProfile:()->Unit,
 ): Unit {
     myComposable(MAIN_ROUTE) {
         MainRoute(
@@ -42,6 +43,7 @@ fun NavGraphBuilder.mainScreen(
             toRegister =toRegister,
             toLoginHome = toLoginHome,
             toNewFriend =toNewFriend,
+            toProfile = toProfile,
         )
 
     }

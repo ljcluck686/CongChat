@@ -38,10 +38,10 @@ class MeViewModel @Inject constructor(
     private val _data = MutableStateFlow<UserInfo>(UserInfo())
     val data : StateFlow<UserInfo> = _data
 
-    init {
-        loadData()
-        Log.d("congcong", "${_data.value.nickname} ")
-    }
+//    init {
+//        loadData()
+//        Log.d("congcong", "${_data.value.nickname} ")
+//    }
 
     private fun loadData() {
         viewModelScope.launch {

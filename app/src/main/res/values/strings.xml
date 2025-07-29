@@ -21,4 +21,8 @@
     <string name="gouwu">购物</string>
     <string name="youxi">游戏</string>
     <string name="xiaochengxu">小程序</string>
+    <string name="photo">头像</string>
+    <string name="nickname">名字</string>
+    <string name="region">地区</string>
+    <string name="code">我的二维码</string>
 </resources>

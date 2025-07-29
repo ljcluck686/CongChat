@@ -2,6 +2,7 @@ package com.software.mywechat.feature.me
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,22 +37,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.software.mywechat.MyAppState
 import com.software.mywechat.R
 import com.software.mywechat.core.design.theme.md_theme_light_arrow
+import com.software.mywechat.core.extension.clickableNoRipple
 import com.software.mywechat.core.model.User
 import com.software.mywechat.core.model.UserInfo
 
 @Composable
 fun MeRoute(
     toLoginHome:()->Unit,
+    toProfile:()->Unit,
     viewModel: MeViewModel= hiltViewModel()
 ){
     val isLogin by viewModel.isLogin.collectAsState()
     val data by viewModel.data.collectAsState()
     MeScreen(
         data = data,
-        loginOut=viewModel::loginOut
+        loginOut=viewModel::loginOut,
+        toProfile = toProfile,
     )
+
     if(isLogin){
         LaunchedEffect (true){
             toLoginHome()
@@ -64,6 +70,7 @@ fun MeRoute(
 fun MeScreen(
     data: UserInfo,
     loginOut: () -> Unit = {},
+    toProfile: () -> Unit = {},
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -72,7 +79,8 @@ fun MeScreen(
             modifier = Modifier.fillMaxSize().background(md_theme_light_arrow),
         ) {
             TopProfileSection(
-                data = data
+                data = data,
+                toProfile = toProfile,
             )
             Button(
                 onClick = loginOut,
@@ -87,11 +95,13 @@ fun MeScreen(
 @Composable
 fun TopProfileSection(
     data: UserInfo,
+    toProfile:()->Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.White)
+            .clickableNoRipple(onClick = toProfile)
             .padding(top = 50.dp,start=10.dp)
 
     ) {
@@ -109,18 +119,18 @@ fun TopProfileSection(
             Spacer(modifier = Modifier.width(12.dp))
             Column {
                 Text(
-                    text = data.nickname!!,
+                    text = "用户名: ${MyAppState.userName}",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
                 Text(
-                    text = "微信号: ${data.phone}",
+                    text = "微信号: ${MyAppState.userId}",
                     fontSize = 14.sp,
                     color = Color.Black
                 )
             }
-            // 右侧二维码
+
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Default.QrCode,
@@ -129,26 +139,26 @@ fun TopProfileSection(
             )
         }
         Spacer(modifier = Modifier.height(15.dp))
-        Row(
-            modifier = Modifier.padding(start = 60.dp, bottom = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            OutlinedButton(
-                onClick = {  },
-                modifier = Modifier.height(32.dp)
-            ) {
-                Text(text = "+ 状态", fontSize = 12.sp)
-            }
-            IconButton(
-                onClick = {  },
-                modifier = Modifier.size(32.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Refresh,
-                    contentDescription = "Refresh",
-                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                )
-            }
-        }
+//        Row(
+//            modifier = Modifier.padding(start = 60.dp, bottom = 8.dp),
+//            horizontalArrangement = Arrangement.spacedBy(8.dp)
+//        ) {
+//            OutlinedButton(
+//                onClick = {  },
+//                modifier = Modifier.height(32.dp)
+//            ) {
+//                Text(text = "+ 状态", fontSize = 12.sp)
+//            }
+//            IconButton(
+//                onClick = {  },
+//                modifier = Modifier.size(32.dp)
+//            ) {
+//                Icon(
+//                    imageVector = Icons.Default.Refresh,
+//                    contentDescription = "Refresh",
+//                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+//                )
+//            }
+//        }
     }
 }

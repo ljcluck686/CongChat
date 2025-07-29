@@ -8,7 +8,10 @@ import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.response.NetworkResponse
 import com.software.mywechat.core.model.Session
+import com.software.mywechat.core.model.UpdateReq
 import com.software.mywechat.core.model.User
+import retrofit2.http.Body
+import retrofit2.http.Header
 
 
 interface MyNetworkDataSource {
@@ -45,5 +48,10 @@ interface MyNetworkDataSource {
     suspend fun getHandleFriendApplyList(
         targetId:String
     ):NetworkResponse<DataListWrapper>
+
+    suspend fun update(
+        authorization: String,
+        data: UpdateReq,
+    ):NetworkResponse<Info>
 
 }

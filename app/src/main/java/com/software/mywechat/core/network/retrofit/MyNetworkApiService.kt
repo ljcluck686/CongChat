@@ -8,11 +8,13 @@ import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.response.NetworkResponse
 import com.software.mywechat.core.model.Session
+import com.software.mywechat.core.model.UpdateReq
 import com.software.mywechat.core.model.User
 import com.software.mywechat.core.model.UserInfo
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -31,6 +33,12 @@ interface MyNetworkApiService {
     suspend fun userInfo(
         @Header("Authorization") authorization: String
     ): NetworkResponse<Info>
+
+    @PATCH("v1/user/update")
+    suspend fun update(
+        @Header("Authorization") authorization: String,
+        @Body data: UpdateReq,
+    ):NetworkResponse<Info>
 
     @GET("v1/user/findUser")
     suspend fun findUser(

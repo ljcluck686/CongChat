@@ -10,6 +10,8 @@ import com.software.mywechat.feature.addressbook.addressBookScreen
 import com.software.mywechat.feature.applyfriend.applyFriendScreen
 import com.software.mywechat.feature.applyfriend.toApplyFriend
 import com.software.mywechat.feature.discovery.discoveryScreen
+import com.software.mywechat.feature.fixname.fixNameScreen
+import com.software.mywechat.feature.fixname.navigationToFixName
 import com.software.mywechat.feature.guide.GUIDE_ROUTE
 import com.software.mywechat.feature.guide.guideScreen
 import com.software.mywechat.feature.login.finishAllLoginPages
@@ -23,6 +25,9 @@ import com.software.mywechat.feature.main.navigationToMain
 import com.software.mywechat.feature.me.meScreen
 import com.software.mywechat.feature.newfriend.navigationToNewFriend
 import com.software.mywechat.feature.newfriend.newFriendScreen
+import com.software.mywechat.feature.profile.finishAllLoginPage
+import com.software.mywechat.feature.profile.navigationToProfile
+import com.software.mywechat.feature.profile.profileScreen
 import com.software.mywechat.feature.register.navigationToRegister
 import com.software.mywechat.feature.register.registerScreen
 import com.software.mywechat.feature.search.navigationToSearch
@@ -47,6 +52,7 @@ fun MyApp(
             toRegister = navController::navigationToRegister,
             toLoginHome = navController::navigateToLoginHome,
             toNewFriend = navController::navigationToNewFriend,
+            toProfile = navController::navigationToProfile
         )
         splashScreen()
         addressBookScreen(
@@ -56,7 +62,8 @@ fun MyApp(
             toLogin = navController::navigationToLogin
         )
         meScreen(
-            toLoginHome = navController::navigateToLoginHome
+            toLoginHome = navController::navigateToLoginHome,
+            toProfile = navController::navigationToProfile
         )
         guideScreen(
             appUiState = appUiState,
@@ -96,6 +103,15 @@ fun MyApp(
         )
         applyFriendScreen(
             toBack = navController::popBackStack,
+        )
+        profileScreen(
+            toBack = navController::popBackStack,
+            toFixName = navController::navigationToFixName,
+        )
+        fixNameScreen(
+            toBack = navController::popBackStack,
+            ToProfile = navController::navigationToProfile,
+            finishAllLoginPages = navController::finishAllLoginPage,
         )
     }
 }

@@ -21,11 +21,13 @@ fun NavController.navigationToMe():Unit{
 
 
 fun NavGraphBuilder.meScreen(
-    toLoginHome:()->Unit
+    toLoginHome:()->Unit,
+    toProfile:()->Unit,
 ): Unit {
     myComposable(ME_ROUTE) {
         MeRoute (
-            toLoginHome = toLoginHome
+            toLoginHome = toLoginHome,
+            toProfile = toProfile,
         )
     }
 }

@@ -10,6 +10,7 @@ import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.response.NetworkResponse
 import com.software.mywechat.core.model.Session
+import com.software.mywechat.core.model.UpdateReq
 import com.software.mywechat.core.model.User
 import com.software.mywechat.core.model.UserInfo
 import com.software.mywechat.core.network.retrofit.MyNetworkApiService
@@ -46,6 +47,10 @@ class MyRetrofitDataSource @Inject constructor(
 
     override suspend fun userInfo(authorization: String): NetworkResponse<Info> {
         return service.userInfo(authorization)
+    }
+
+    override suspend fun update(authorization: String, data: UpdateReq): NetworkResponse<Info> {
+        return service.update(authorization,data)
     }
 
     override suspend fun getFriendList(userId: String): NetworkResponse<Info> {

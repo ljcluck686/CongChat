@@ -7,6 +7,7 @@ import com.software.mywechat.core.model.FriendApplyResponse
 import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.Session
+import com.software.mywechat.core.model.UpdateReq
 import com.software.mywechat.core.model.User
 import com.software.mywechat.core.model.UserInfo
 import com.software.mywechat.core.model.response.NetworkResponse
@@ -41,6 +42,15 @@ class UserRepository @Inject constructor(
     ):Flow<NetworkResponse<Info>> = flow{
         emit(
             networkDataSource.userInfo(authorization)
+        )
+    }.flowOn(Dispatchers.IO)
+
+    fun update(
+        authorization: String,
+        data:UpdateReq,
+    ):Flow<NetworkResponse<Info>> = flow {
+        emit(
+            networkDataSource.update(authorization,data)
         )
     }.flowOn(Dispatchers.IO)
 

@@ -22,13 +22,34 @@ class MyApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+//        applicationScope.launch {
+//            userDataRepository.userData
+//                .map{ it.session }
+//                .distinctUntilChanged()
+//                .collectLatest {
+//                    MyAppState.session = it.token
+//                    MyAppState.userId = it.id
+//
+//                }
+//        }
+//        applicationScope.launch {
+//            userDataRepository.userData
+//                .map { it.user }
+//                .distinctUntilChanged()
+//                .collectLatest {
+//                    MyAppState.userName = it.nickname
+//                    MyAppState.phone = it.phone
+//                }
+//        }
         applicationScope.launch {
             userDataRepository.userData
-                .map{ it.session }
                 .distinctUntilChanged()
-                .collectLatest {
-                    MyAppState.session = it.token
-                    MyAppState.userId = it.id
+                .collectLatest { userData ->
+                    MyAppState.session = userData.session.token
+                    MyAppState.userId = userData.session.id
+                    MyAppState.userName = userData.user.nickname
+                    MyAppState.phone = userData.user.phone
+
                 }
         }
     }
