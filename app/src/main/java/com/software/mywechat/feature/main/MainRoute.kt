@@ -31,6 +31,7 @@ fun MainRoute(
     toLoginHome:()->Unit,
     toNewFriend:()->Unit,
     toProfile:()->Unit,
+    toSetting:()->Unit,
 ){
     MainScreen(
         appUiState=appUiState,
@@ -39,6 +40,7 @@ fun MainRoute(
         toLoginHome = toLoginHome,
         toNewFriend = toNewFriend,
         toProfile = toProfile,
+        toSetting = toSetting,
     )
 }
 
@@ -52,6 +54,7 @@ fun MainScreen(
     toLoginHome:()->Unit={},
     toNewFriend:()->Unit={},
     toProfile:()->Unit={},
+    toSetting:()->Unit={},
 ){
     var currentDestination by rememberSaveable() {
         mutableStateOf(BottomLevelDestination.SPLASH.route)
@@ -103,6 +106,7 @@ fun MainScreen(
                 3 -> MeRoute(
                     toLoginHome  = toLoginHome,
                     toProfile = toProfile,
+                    toSetting = toSetting,
                 )
             }
         }

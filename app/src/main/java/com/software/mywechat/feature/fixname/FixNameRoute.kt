@@ -36,7 +36,7 @@ import com.software.mywechat.core.design.component.MyCenterTopAppBar
 @Composable
 fun FixNameRoute(
     toBack:()->Unit,
-    ToProfile:()->Unit,
+    toProfile:()->Unit,
     finishAllLoginPages:()->Unit,
     viewModel: FixNameViewModel = hiltViewModel()
 ){
@@ -58,7 +58,7 @@ fun FixNameRoute(
     LaunchedEffect(isToProfile) {
         if(isToProfile){
             finishAllLoginPages()
-            ToProfile()
+            toProfile()
         }
     }
 }

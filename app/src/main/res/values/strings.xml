@@ -25,4 +25,22 @@
     <string name="nickname">名字</string>
     <string name="region">地区</string>
     <string name="code">我的二维码</string>
+    <string name="shoucang">收藏</string>
+    <string name="shezhi">设置</string>
+    <string name="gerenziliao">个人资料</string>
+    <string name="zhanghaoanquan">账号安全</string>
+    <string name="wiechengnianmoshi">未成年模式</string>
+    <string name="guanhuai">关怀模式</string>
+    <string name="tongzhi">通知</string>
+    <string name="chat">聊天</string>
+    <string name="tongyong">通用</string>
+    <string name="pengyuoquanxian">朋友权限</string>
+    <string name="gerenxinxiquanxian">个人信息与权限</string>
+    <string name="gerenxinxiqingdan">个人信息收集清单</string>
+    <string name="disanfang">第三方信息共享清单</string>
+    <string name="plugin">插件</string>
+    <string name="guanyu">关于葱信</string>
+    <string name="help">帮助与反馈</string>
+    <string name="back">退出</string>
+
 </resources>

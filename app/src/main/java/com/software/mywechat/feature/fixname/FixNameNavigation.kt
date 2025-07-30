@@ -13,13 +13,13 @@ fun NavController.navigationToFixName():Unit{
 
 fun NavGraphBuilder.fixNameScreen(
     toBack:()->Unit,
-    ToProfile:()->Unit,
+    toProfile:()->Unit,
     finishAllLoginPages:()->Unit,
 ): Unit {
     myComposable(FIX_NAME_ROUTE) {
         FixNameRoute(
             toBack = toBack,
-            ToProfile = ToProfile,
+            toProfile = toProfile,
             finishAllLoginPages = finishAllLoginPages,
         )
     }

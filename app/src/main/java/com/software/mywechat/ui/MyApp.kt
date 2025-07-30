@@ -32,6 +32,8 @@ import com.software.mywechat.feature.register.navigationToRegister
 import com.software.mywechat.feature.register.registerScreen
 import com.software.mywechat.feature.search.navigationToSearch
 import com.software.mywechat.feature.search.searchScreen
+import com.software.mywechat.feature.setting.navigationToSetting
+import com.software.mywechat.feature.setting.settingScreen
 import com.software.mywechat.feature.splash.splashScreen
 import com.software.mywechat.feature.userdetail.navigationToUserDetail
 import com.software.mywechat.feature.userdetail.userDetailScreen
@@ -52,7 +54,8 @@ fun MyApp(
             toRegister = navController::navigationToRegister,
             toLoginHome = navController::navigateToLoginHome,
             toNewFriend = navController::navigationToNewFriend,
-            toProfile = navController::navigationToProfile
+            toProfile = navController::navigationToProfile,
+            toSetting = navController::navigationToSetting
         )
         splashScreen()
         addressBookScreen(
@@ -63,7 +66,8 @@ fun MyApp(
         )
         meScreen(
             toLoginHome = navController::navigateToLoginHome,
-            toProfile = navController::navigationToProfile
+            toProfile = navController::navigationToProfile,
+            toSetting = navController::navigationToSetting,
         )
         guideScreen(
             appUiState = appUiState,
@@ -110,8 +114,13 @@ fun MyApp(
         )
         fixNameScreen(
             toBack = navController::popBackStack,
-            ToProfile = navController::navigationToProfile,
+            toProfile = navController::navigationToProfile,
             finishAllLoginPages = navController::finishAllLoginPage,
+        )
+        settingScreen(
+            toBack = navController::popBackStack,
+            toProfile = navController::navigationToProfile,
+            toLoginHome = navController::navigateToLoginHome
         )
     }
 }

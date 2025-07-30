@@ -122,6 +122,11 @@ dependencies {
     // 可选：如果需要使用其它库，则引入 photo 库，自定义实现 PhotoProvider 即可
     implementation("cn.qhplus.emo:photo")
     //endregion
+    //阿里云服务
+    implementation ("com.aliyun.dpa:oss-android-sdk:2.9.21")
+    //通用IO相关工具类
+    //http://commons.apache.org/proper/commons-io/
+    implementation("commons-io:commons-io:2.0")
 
 }
 
