@@ -14,6 +14,12 @@ interface FriendDao {
     @Query("SELECT * FROM friend_list order by nickname desc")
     fun getAll(): Flow<List<FriendEntity>>
 
+    @Query("SELECT * FROM friend_list WHERE status == 1 ORDER BY nickname DESC")
+    fun getFriendList():Flow<List<FriendEntity>>
+
+    @Query("SELECT * FROM friend_list WHERE userId = :id ORDER BY nickname DESC")
+    fun getFriend(id: String): FriendEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(data: FriendEntity)
 

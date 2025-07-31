@@ -1,6 +1,7 @@
 package com.software.mywechat.core.data.repository
 
 import com.software.mywechat.core.model.DataListWrapper
+import com.software.mywechat.core.model.FriendApplyAction
 import com.software.mywechat.core.model.FriendApplyRequest
 import com.software.mywechat.core.model.FriendApplyResp
 import com.software.mywechat.core.model.FriendApplyResponse
@@ -77,6 +78,14 @@ class UserRepository @Inject constructor(
     ):Flow<NetworkResponse<FriendApplyResponse>> = flow{
         emit(
             networkDataSource.applyFriend(data)
+        )
+    }.flowOn(Dispatchers.IO)
+
+    fun handleFriendApply(
+        data:FriendApplyAction
+    ) = flow{
+        emit(
+            networkDataSource.handleFriendApply(data)
         )
     }.flowOn(Dispatchers.IO)
 

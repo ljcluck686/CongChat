@@ -59,6 +59,8 @@ fun NewFriendRoute(
         toAddFriend = toAddFriend,
         toSearch =toSearch,
         toUserDetail =toUserDetail,
+        toConfirm = viewModel::toConfirm,
+        toRefuse = viewModel::toRefuse
     )
 }
 
@@ -70,6 +72,8 @@ fun NewFriendScreen(
     toAddFriend: () -> Unit = {},
     toSearch: () -> Unit = {},
     toUserDetail: (String) -> Unit = {},
+    toConfirm:(String)->Unit = {},
+    toRefuse:(String)->Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -123,7 +127,7 @@ fun NewFriendScreen(
                 modifier = Modifier.fillMaxWidth()
             ){
                 items(datum.list){it->
-                    ApplyContent(it,toUserDetail)
+                    ApplyContent(it,toUserDetail,toConfirm,toRefuse)
                 }
             }
 
@@ -136,6 +140,8 @@ fun NewFriendScreen(
 fun ApplyContent(
     friendApplyResp: FriendApplyResp,
     toUserDetail: (String) -> Unit,
+    toConfirm:(String)->Unit,
+    toRefuse:(String)->Unit,
 ) {
     Row(
         modifier = Modifier
@@ -180,20 +186,37 @@ fun ApplyContent(
                     .weight(1f)
             )
         }
-        Button(
-            onClick = {},
-            colors = ButtonDefaults.buttonColors(Color.Green),
-            shape = RoundedCornerShape(6.dp),
-        ){
-            Text("同意")
+        if(friendApplyResp.status==0){
+            Button(
+                onClick = {
+                    toConfirm(friendApplyResp.userId)
+                },
+                colors = ButtonDefaults.buttonColors(Color.Green),
+                shape = RoundedCornerShape(6.dp),
+            ){
+                Text("同意")
+            }
+            Spacer(modifier = Modifier.width(3.dp))
+            Button(
+                onClick = {
+                    toRefuse(friendApplyResp.userId)
+                },
+                colors = ButtonDefaults.buttonColors(Color.Green),
+                shape = RoundedCornerShape(6.dp),
+            ) {
+                Text("拒绝")
+            }
+        }else if(friendApplyResp.status==1){
+            Text(
+                text = "已通过",
+                fontSize = 17.sp
+            )
         }
-        Spacer(modifier = Modifier.width(3.dp))
-        Button(
-            onClick = {},
-            colors = ButtonDefaults.buttonColors(Color.Green),
-            shape = RoundedCornerShape(6.dp),
-        ) {
-            Text("拒绝")
+        else{
+            Text(
+                text = "已拒绝",
+                fontSize = 17.sp
+            )
         }
     }
     CQDivider()

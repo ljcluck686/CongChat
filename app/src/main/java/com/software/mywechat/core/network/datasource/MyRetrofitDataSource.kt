@@ -3,6 +3,7 @@ package com.software.mywechat.core.network.datasource
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.software.mywechat.core.config.Config
 import com.software.mywechat.core.model.DataListWrapper
+import com.software.mywechat.core.model.FriendApplyAction
 import com.software.mywechat.core.model.FriendApplyRequest
 import com.software.mywechat.core.model.FriendApplyResp
 import com.software.mywechat.core.model.FriendApplyResponse
@@ -59,6 +60,10 @@ class MyRetrofitDataSource @Inject constructor(
 
     override suspend fun applyFriend(data: FriendApplyRequest): NetworkResponse<FriendApplyResponse> {
         return service.applyFriend(data)
+    }
+
+    override suspend fun handleFriendApply(data: FriendApplyAction) {
+        return service.handleFriendApply(data)
     }
 
     override suspend fun findUser(

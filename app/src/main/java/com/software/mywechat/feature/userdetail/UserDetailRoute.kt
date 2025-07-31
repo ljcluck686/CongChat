@@ -100,7 +100,7 @@ fun UserDetailScreen(
                         .size(75.dp)
                 ) {
                     AsyncImage(
-                        model = "https://chan-xin.oss-cn-beijing.aliyuncs.com/chan_xin/image/1752555249209.jpg",
+                        model = data.avatar,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier

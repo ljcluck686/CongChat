@@ -16,4 +16,8 @@ class FriendRepository @Inject constructor(
 
     suspend fun update(data:FriendEntity) = friendDao.update(data)
 
+    fun getFriendList(): Flow<List<FriendEntity>> = friendDao.getFriendList()
+
+    fun getFriend(id:String) : FriendEntity = friendDao.getFriend(id)
+
 }
