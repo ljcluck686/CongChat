@@ -1,6 +1,7 @@
 package com.software.mywechat
 
 import android.content.Context
+import com.software.mywechat.core.database.MyFriendDatabase
 
 object MyAppState {
     lateinit var applicationContext: Context
@@ -9,4 +10,6 @@ object MyAppState {
     var userName: String =""
     var phone: String = ""
     var localAvatar:String = ""
+    var myFriendDatabase: MyFriendDatabase? = null
+
 }

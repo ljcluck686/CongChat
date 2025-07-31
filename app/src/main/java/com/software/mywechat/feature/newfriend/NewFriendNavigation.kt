@@ -14,12 +14,14 @@ fun NavGraphBuilder.newFriendScreen(
     toBack:()->Unit,
     toAddFriend:()->Unit,
     toSearch:()->Unit,
+    toUserDetail:(String)->Unit,
 ): Unit {
     myComposable(NEW_FRIEND_ROUTE) {
         NewFriendRoute(
             toBack = toBack,
             toAddFriend = toAddFriend,
             toSearch = toSearch,
+            toUserDetail = toUserDetail,
         )
     }
 }

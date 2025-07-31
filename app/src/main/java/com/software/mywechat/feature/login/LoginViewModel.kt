@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.software.mywechat.MyAppState
+import com.software.mywechat.MyApplication
 import com.software.mywechat.MyApplication.Companion.TAG
 import com.software.mywechat.R
 import com.software.mywechat.core.data.repository.UserDataRepository
@@ -58,7 +59,9 @@ class LoginViewModel @Inject constructor(
 //                        Log.d("congcong", "login: accept")
                         val result = it.getOrThrow()
 //                        queryUserInfo(result.data!!.token)
-                        userDataRepository.setSession(result.data!!.toPreferences())
+                        val sessionPreference =result.data!!.toPreferences()
+                        userDataRepository.setSession(sessionPreference)
+                        MyApplication.instance.initAfterLogin(sessionPreference!!)
                         queryUserInfo(result.data!!.token)
                         _uiState.value = LoginUiState.Success
                     }
@@ -73,6 +76,7 @@ class LoginViewModel @Inject constructor(
                 .collectLatest {
                     if(it.isSuccess){
                         val result = it.getOrThrow()
+
                         userDataRepository.setUser(result.data!!.toPreferences())
                         saveImage(result.data!!.info.avatar)
                     }

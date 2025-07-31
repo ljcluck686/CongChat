@@ -5,11 +5,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -46,6 +49,7 @@ fun NewFriendRoute(
     toBack: () -> Unit,
     toAddFriend: () -> Unit,
     toSearch: () -> Unit,
+    toUserDetail: (String) -> Unit,
     viewModel: NewFriendViewModel = hiltViewModel()
 ) {
     val datum by viewModel.datum.collectAsState()
@@ -54,6 +58,7 @@ fun NewFriendRoute(
         toBack = toBack,
         toAddFriend = toAddFriend,
         toSearch =toSearch,
+        toUserDetail =toUserDetail,
     )
 }
 
@@ -64,6 +69,7 @@ fun NewFriendScreen(
     toBack: () -> Unit = {},
     toAddFriend: () -> Unit = {},
     toSearch: () -> Unit = {},
+    toUserDetail: (String) -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -117,7 +123,7 @@ fun NewFriendScreen(
                 modifier = Modifier.fillMaxWidth()
             ){
                 items(datum.list){it->
-                    ApplyContent(it)
+                    ApplyContent(it,toUserDetail)
                 }
             }
 
@@ -127,11 +133,17 @@ fun NewFriendScreen(
 }
 
 @Composable
-fun ApplyContent(friendApplyResp: FriendApplyResp) {
+fun ApplyContent(
+    friendApplyResp: FriendApplyResp,
+    toUserDetail: (String) -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
+            .clickable(onClick = {
+                toUserDetail(friendApplyResp.userId)
+            })
             .background(Color.White),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -149,7 +161,7 @@ fun ApplyContent(friendApplyResp: FriendApplyResp) {
             )
         }
         Column (
-
+            modifier = Modifier.weight(1f)
         ){
             Text(
                 text =  friendApplyResp.nickname,
@@ -167,6 +179,21 @@ fun ApplyContent(friendApplyResp: FriendApplyResp) {
                     .padding(start = 15.dp)
                     .weight(1f)
             )
+        }
+        Button(
+            onClick = {},
+            colors = ButtonDefaults.buttonColors(Color.Green),
+            shape = RoundedCornerShape(6.dp),
+        ){
+            Text("同意")
+        }
+        Spacer(modifier = Modifier.width(3.dp))
+        Button(
+            onClick = {},
+            colors = ButtonDefaults.buttonColors(Color.Green),
+            shape = RoundedCornerShape(6.dp),
+        ) {
+            Text("拒绝")
         }
     }
     CQDivider()

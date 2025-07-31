@@ -2,6 +2,7 @@ package com.software.mywechat
 
 import android.app.Application
 import android.util.Log
+import com.software.app.core.datastore.SessionPreferences
 import com.software.mywechat.core.data.repository.UserDataRepository
 import com.software.mywechat.util.ImageUtils
 import dagger.hilt.android.HiltAndroidApp
@@ -69,11 +70,30 @@ class MyApplication: Application() {
         logoutSilence()
     }
 
+    private var isInitAfterLogin = false
+
     private fun logoutSilence() {
+        isInitAfterLogin = false
         applicationScope.launch {
             userDataRepository.logout()
         }
+        destroyInstance()
     }
+
+    private fun destroyInstance() {
+        MyAppState.myFriendDatabase = null
+    }
+
+    fun initAfterLogin(session: SessionPreferences) {
+        destroyInstance()
+        if (isInitAfterLogin) {
+            return
+        }
+
+        isInitAfterLogin = true
+    }
+
+
 
     companion object {
         const val TAG = "congcong"
