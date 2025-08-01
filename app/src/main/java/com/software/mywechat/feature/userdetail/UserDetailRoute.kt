@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.software.mywechat.core.database.model.FriendEntity
 import com.software.mywechat.core.design.component.MyCenterTopAppBar
 import com.software.mywechat.core.design.theme.CQDivider
 import com.software.mywechat.core.design.theme.SpaceExtraSmallHeight
@@ -64,7 +65,7 @@ fun UserDetailRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserDetailScreen(
-    data : User,
+    data : FriendEntity,
     toBack: () -> Unit={},
     toApplyFriend: (String) -> Unit={},
 ) {
@@ -100,7 +101,7 @@ fun UserDetailScreen(
                         .size(75.dp)
                 ) {
                     AsyncImage(
-                        model = data.avatar,
+                        model = data.avatarUrl,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -181,23 +182,63 @@ fun UserDetailScreen(
 
             SpaceMediumHeight()
 
-            Row(
-                modifier = Modifier
-                    .height(80.dp)
-                    .fillMaxWidth()
-                    .background(Color.White)
-                    .clickable(onClick = {
-                        toApplyFriend(data.id)
-                    }),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Text(
-                    text = "添加到通讯录",
-                    color = md_theme_dark_error,
-                    fontSize = 28.sp,
-                    textAlign = TextAlign.Center
-                )
+            if(data.status==1){
+                Row(
+                    modifier = Modifier
+                        .height(80.dp)
+                        .fillMaxWidth()
+                        .background(Color.White)
+                        .clickable(onClick = {
+
+                        }),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Text(
+                        text = "聊天",
+                        color = md_theme_dark_error,
+                        fontSize = 28.sp,
+                        textAlign = TextAlign.Center
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier
+                        .height(80.dp)
+                        .fillMaxWidth()
+                        .background(Color.White)
+                        .clickable(onClick = {
+                        }),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Text(
+                        text = "视频通话",
+                        color = md_theme_dark_error,
+                        fontSize = 28.sp,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+            else{
+                Row(
+                    modifier = Modifier
+                        .height(80.dp)
+                        .fillMaxWidth()
+                        .background(Color.White)
+                        .clickable(onClick = {
+                            toApplyFriend(data.userId)
+                        }),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Text(
+                        text = "添加到通讯录",
+                        color = md_theme_dark_error,
+                        fontSize = 28.sp,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }

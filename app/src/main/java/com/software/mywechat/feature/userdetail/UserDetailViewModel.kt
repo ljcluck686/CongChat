@@ -4,8 +4,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.software.mywechat.core.data.repository.FriendRepository
+import com.software.mywechat.core.data.repository.MyFriendRepository
 import com.software.mywechat.core.data.repository.UserRepository
+import com.software.mywechat.core.database.model.FriendEntity
 import com.software.mywechat.core.model.User
+import com.software.mywechat.core.model.UserInfo
 import com.software.mywechat.core.result.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,12 +23,13 @@ import javax.inject.Inject
 class UserDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val userRepository: UserRepository,
+    private val friendRepository: FriendRepository,
 ):ViewModel(){
 
     private val userId : String = checkNotNull(savedStateHandle[USER_ID])
 
-    private val _data = MutableStateFlow<User>(User())
-    val data : StateFlow<User> = _data
+    private val _data = MutableStateFlow<FriendEntity>(FriendEntity())
+    val data : StateFlow<FriendEntity> = _data
 
     init {
         loadData()
@@ -32,13 +37,8 @@ class UserDetailViewModel @Inject constructor(
 
     private fun loadData() {
         viewModelScope.launch {
-            userRepository.findUser(name = userId, phone = userId, ids = userId)
-                .asResult()
-                .collectLatest {
-                    if(it.isSuccess){
-                        _data.emit(it.getOrThrow().data!!.infos[0])
-                    }
-                }
+            val res = friendRepository.getFriend(userId)
+            _data.emit(res)
         }
     }
 

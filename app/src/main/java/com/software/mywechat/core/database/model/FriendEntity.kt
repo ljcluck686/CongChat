@@ -9,24 +9,27 @@ import androidx.room.PrimaryKey
     tableName = "friend_list"
 )
 data class FriendEntity (
-    @PrimaryKey val userId:String,
+    @PrimaryKey val userId:String = "",
+
+    @ColumnInfo(name = "phone")
+    val phone: String = "",
 
     @ColumnInfo(name = "nickname")
-    val nickname: String,
+    val nickname: String = "",
 
     @ColumnInfo(name= "local_avatar_url")
-    val avatarUrl :String ,
+    val avatarUrl :String ="",
     //性别
     @ColumnInfo(name = "gender")
-    val  gender :Int ,
+    val  gender :Int = 0,
     @ColumnInfo(name="greet_msg")
-    val greetMsg  :String ,
+    val greetMsg  :String ="",
     //是否为好友
     @ColumnInfo(name = "status")
-    val status : Int,
+    val status : Int = 0,
     //权限，1：我不看他，2看
     @ColumnInfo(name = "permissions")
-    val permissions:Int
+    val permissions:Int =2,
 ){
     
 }

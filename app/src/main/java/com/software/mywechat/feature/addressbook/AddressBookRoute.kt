@@ -129,9 +129,13 @@ fun AddressBookScreen(
                         )
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.White
-                ),
+                colors = TopAppBarColors(
+                    containerColor = md_theme_light_errorContainer,
+                    scrolledContainerColor = md_theme_light_errorContainer,
+                    navigationIconContentColor = md_theme_light_errorContainer,
+                    titleContentColor = Color.Black,
+                    actionIconContentColor =  Color.Black
+                )
             )
         },
         content = { padding ->
@@ -192,7 +196,7 @@ fun ContactList(
     modifier: Modifier = Modifier,
     listState: LazyListState,
     groupedFriends: Map<String, List<User>>,
-    sectionHeaders: List<String>, // 这里改为传入完整字母列表（过滤了 "↑" ）
+    sectionHeaders: List<String>,
     toNewFriend: () -> Unit = {},
 ) {
     LazyColumn(modifier = modifier, state = listState) {
@@ -304,10 +308,10 @@ fun ContactItem(avatarRes: Int, name: String, isLastItem: Boolean, onClick: () -
         )
     }
     if (!isLastItem) {
-        Divider(
+        HorizontalDivider(
             modifier = Modifier.padding(start = 52.dp),
-            color = Color(0xFFF0F0F0),
-            thickness = 0.5.dp
+            thickness = 0.5.dp,
+            color = Color(0xFFF0F0F0)
         )
     }
 }
