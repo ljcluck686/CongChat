@@ -82,6 +82,7 @@ class MyApplication: Application() {
 
     private fun destroyInstance() {
         MyAppState.myFriendDatabase = null
+        MyAppState.myFriendListDatabase = null
     }
 
     fun initAfterLogin(session: SessionPreferences) {

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.software.mywechat.MyAppState
 import com.software.mywechat.core.database.MyFriendDatabase
+import com.software.mywechat.core.database.MyFriendListDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,4 +28,20 @@ class DaoBaseModule {
         }
         return MyAppState.myFriendDatabase!!
     }
+
+    @Provides
+    fun providesMyFriendDatabase(
+        @ApplicationContext context: Context,
+    ): MyFriendListDatabase{
+        if (MyAppState.myFriendListDatabase == null) {
+            val databaseName = "my_friend_database_${MyAppState.userId}"
+            MyAppState.myFriendListDatabase = Room.databaseBuilder(
+                context,
+                MyFriendListDatabase::class.java,
+                databaseName,
+            ).build()
+        }
+        return MyAppState.myFriendListDatabase!!
+    }
+
 }
