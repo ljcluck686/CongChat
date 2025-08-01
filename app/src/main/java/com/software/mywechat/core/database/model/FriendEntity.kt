@@ -28,5 +28,5 @@ data class FriendEntity (
     @ColumnInfo(name = "permissions")
     val permissions:Int
 ){
-
+    
 }

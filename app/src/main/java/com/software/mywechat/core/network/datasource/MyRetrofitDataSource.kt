@@ -7,6 +7,7 @@ import com.software.mywechat.core.model.FriendApplyAction
 import com.software.mywechat.core.model.FriendApplyRequest
 import com.software.mywechat.core.model.FriendApplyResp
 import com.software.mywechat.core.model.FriendApplyResponse
+import com.software.mywechat.core.model.FriendList
 import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.response.NetworkResponse
@@ -54,7 +55,7 @@ class MyRetrofitDataSource @Inject constructor(
         return service.update(authorization,data)
     }
 
-    override suspend fun getFriendList(userId: String): NetworkResponse<Info> {
+    override suspend fun getFriendList(userId: String): NetworkResponse<FriendList> {
         return service.getFriendList(userId)
     }
 

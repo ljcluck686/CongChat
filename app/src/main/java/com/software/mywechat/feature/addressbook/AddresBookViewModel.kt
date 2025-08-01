@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.software.mywechat.MyAppState
 import com.software.mywechat.core.data.repository.UserRepository
+import com.software.mywechat.core.model.FriendList
 import com.software.mywechat.core.model.UserInfo
 import com.software.mywechat.core.result.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +19,8 @@ import javax.inject.Inject
 class AddresBookViewModel @Inject constructor(
     private val userRepository: UserRepository
 ):ViewModel(){
-    private val _datum = MutableStateFlow<UserInfo>(UserInfo())
-    val datum : StateFlow<UserInfo> = _datum
+    private val _datum = MutableStateFlow<FriendList>(FriendList(emptyList()))
+    val datum : StateFlow<FriendList> = _datum
 
     init {
         loadData()
@@ -31,7 +32,7 @@ class AddresBookViewModel @Inject constructor(
                 .asResult()
                 .collectLatest {
                     if(it.isSuccess){
-                        val res =it.getOrThrow().data?.info!!
+                        val res =it.getOrThrow().data!!
                         _datum.emit(res)
                     }
                 }

@@ -7,7 +7,9 @@ import com.software.mywechat.core.data.repository.UserDataRepository
 import com.software.mywechat.feature.addFriend.addFriendScreen
 import com.software.mywechat.feature.addFriend.navigationToAddFriend
 import com.software.mywechat.feature.addressbook.addressBookScreen
+import com.software.mywechat.feature.addressbook.navigationToAddressBook
 import com.software.mywechat.feature.applyfriend.applyFriendScreen
+import com.software.mywechat.feature.applyfriend.finish
 import com.software.mywechat.feature.applyfriend.toApplyFriend
 import com.software.mywechat.feature.discovery.discoveryScreen
 import com.software.mywechat.feature.fixname.fixNameScreen
@@ -108,6 +110,8 @@ fun MyApp(
         )
         applyFriendScreen(
             toBack = navController::popBackStack,
+            toAddressBook = navController::navigationToAddressBook,
+            finsh = navController::finish
         )
         profileScreen(
             toBack = navController::popBackStack,

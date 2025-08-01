@@ -5,6 +5,7 @@ import com.software.mywechat.core.model.FriendApplyAction
 import com.software.mywechat.core.model.FriendApplyRequest
 import com.software.mywechat.core.model.FriendApplyResp
 import com.software.mywechat.core.model.FriendApplyResponse
+import com.software.mywechat.core.model.FriendList
 import com.software.mywechat.core.model.Info
 import com.software.mywechat.core.model.Infos
 import com.software.mywechat.core.model.response.NetworkResponse
@@ -51,7 +52,7 @@ interface MyNetworkApiService {
     @GET("v1/social/firend/getFriendList")
     suspend fun getFriendList(
         @Query("user_id") userId:String
-    ): NetworkResponse<Info>
+    ): NetworkResponse<FriendList>
 
     @POST("v1/social/firend/applyFriend")
     suspend fun applyFriend(

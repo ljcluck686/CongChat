@@ -28,6 +28,9 @@ class ApplyFriendViewModel @Inject  constructor(
     private val _tx = MutableStateFlow<String>("")
     val tx : StateFlow<String> = _tx
 
+    private val _msg = MutableStateFlow<String>("")
+    val msg : StateFlow<String> = _msg
+
     init{
         loadData()
 
@@ -55,9 +58,17 @@ class ApplyFriendViewModel @Inject  constructor(
                 .asResult()
                 .collectLatest {
                     if(it.isSuccess){
+
+                    }
+                    else{
+                        _msg.emit(it.exceptionOrNull()?.message!!)
                     }
                 }
         }
+    }
+
+    fun cle(msg: String) {
+        _msg.value = ""
     }
 
 }

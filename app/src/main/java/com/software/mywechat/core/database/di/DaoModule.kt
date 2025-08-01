@@ -11,7 +11,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object DaoModule {
     @Provides
-    fun providesAreaDao(
+    fun providesFriendDao(
         database: MyFriendDatabase,
     ): FriendDao = database.friendDao()
 }
