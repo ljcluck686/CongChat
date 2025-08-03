@@ -39,6 +39,8 @@ import com.software.mywechat.feature.setting.settingScreen
 import com.software.mywechat.feature.splash.splashScreen
 import com.software.mywechat.feature.userdetail.navigationToUserDetail
 import com.software.mywechat.feature.userdetail.userDetailScreen
+import com.software.mywechat.feature.wechat.navigationToWeChat
+import com.software.mywechat.feature.wechat.weChatScreen
 
 
 @Composable
@@ -57,11 +59,13 @@ fun MyApp(
             toLoginHome = navController::navigateToLoginHome,
             toNewFriend = navController::navigationToNewFriend,
             toProfile = navController::navigationToProfile,
-            toSetting = navController::navigationToSetting
+            toSetting = navController::navigationToSetting,
+            toUserDetail = navController::navigationToUserDetail
         )
         splashScreen()
         addressBookScreen(
-            toNewFriend = navController::navigationToNewFriend
+            toNewFriend = navController::navigationToNewFriend,
+            toUserDetail = navController::navigationToUserDetail
         )
         discoveryScreen(
             toLogin = navController::navigationToLogin
@@ -107,6 +111,7 @@ fun MyApp(
         userDetailScreen(
             toBack = navController::popBackStack,
             toApplyFriend = navController::toApplyFriend,
+            toWeChat = navController::navigationToWeChat
         )
         applyFriendScreen(
             toBack = navController::popBackStack,
@@ -127,5 +132,7 @@ fun MyApp(
             toProfile = navController::navigationToProfile,
             toLoginHome = navController::navigateToLoginHome
         )
+
+        weChatScreen()
     }
 }

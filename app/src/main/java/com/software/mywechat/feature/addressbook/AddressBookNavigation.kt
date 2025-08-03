@@ -14,10 +14,12 @@ fun NavController.navigationToAddressBook():Unit{
 
 fun NavGraphBuilder.addressBookScreen(
     toNewFriend:()->Unit,
+    toUserDetail:(String)->Unit,
 ): Unit {
     myComposable(ADDRESS_BOOK_ROUTE) {
         AddressBookRoute(
             toNewFriend = toNewFriend,
+            toUserDetail = toUserDetail,
         )
     }
 }

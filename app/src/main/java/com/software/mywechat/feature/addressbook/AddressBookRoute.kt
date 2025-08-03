@@ -23,7 +23,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -34,7 +33,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -59,17 +57,18 @@ import com.software.mywechat.core.model.FriendList
 import com.software.mywechat.core.model.User
 import com.software.mywechat.util.PinyinUtils
 import kotlinx.coroutines.launch
-import net.sourceforge.pinyin4j.PinyinHelper
 
 @Composable
 fun AddressBookRoute(
     toNewFriend: () -> Unit,
+    toUserDetail: (String) -> Unit,
     viewModel: AddresBookViewModel = hiltViewModel()
 ) {
     val datum by viewModel.datum.collectAsState()
     AddressBookScreen(
         datum = datum,
         toNewFriend = toNewFriend,
+        toUserDetail = toUserDetail,
     )
 }
 
@@ -78,6 +77,7 @@ fun AddressBookRoute(
 fun AddressBookScreen(
     datum: FriendList,
     toNewFriend: () -> Unit = {},
+    toUserDetail: (String) -> Unit = {},
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val listState = rememberLazyListState()
@@ -147,11 +147,13 @@ fun AddressBookScreen(
                     // 联系人列表占据主要空间
                     ContactList(
                         modifier = Modifier.weight(1f),
+                        datum = datum,
                         listState = listState,
                         groupedFriends = groupedFriends,
                         // 这里传入所有可能的 section 用于构建列表头部，方便计算滚动位置
                         sectionHeaders = fullSidebarSections.filter { it != "↑" },
                         toNewFriend = toNewFriend,
+                        toUserDetail = toUserDetail,
                     )
 
                     // 侧边栏放在右侧，使用固定的 fullSidebarSections
@@ -193,11 +195,13 @@ fun AddressBookScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ContactList(
+    datum:FriendList,
     modifier: Modifier = Modifier,
     listState: LazyListState,
     groupedFriends: Map<String, List<User>>,
     sectionHeaders: List<String>,
     toNewFriend: () -> Unit = {},
+    toUserDetail: (String) -> Unit = {},
 ) {
     LazyColumn(modifier = modifier, state = listState) {
         // 特殊联系人区域
@@ -223,10 +227,12 @@ fun ContactList(
                 stickyHeader { SectionHeader(section) }
                 items(groupedFriends[section] ?: emptyList()) { friend ->
                     ContactItem(
+                        datum =datum,
                         avatarRes = R.drawable.input_username,
                         name = friend.nickname,
+                        id = friend.id,
                         isLastItem = friend == groupedFriends[section]?.last(),
-                        onClick = {  }
+                        toUserDetail = toUserDetail,
                     )
                 }
             }
@@ -283,14 +289,23 @@ fun SectionHeader(section: String) {
 }
 
 @Composable
-fun ContactItem(avatarRes: Int, name: String, isLastItem: Boolean, onClick: () -> Unit) {
+fun ContactItem(
+    datum:FriendList,
+    avatarRes: Int,
+    id: String,
+    name: String,
+    isLastItem: Boolean,
+    toUserDetail: (String) -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(52.dp)
             .background(Color.White)
             .padding(horizontal = 16.dp)
-            .clickable(onClick = onClick),
+            .clickable(onClick = {
+                toUserDetail(id)
+            }),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(

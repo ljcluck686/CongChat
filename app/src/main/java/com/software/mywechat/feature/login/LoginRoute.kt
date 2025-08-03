@@ -168,7 +168,7 @@ fun LoginScreen(
                     }
 //                    when(val uiState = uiState){
 //                        is LoginUiState.Success->{
-//                            Text(text = "太棒了")
+//                            Message(text = "太棒了")
 //                        }
 //                        else ->{
 //

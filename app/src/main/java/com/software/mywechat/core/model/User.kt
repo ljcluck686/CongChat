@@ -3,12 +3,14 @@ package com.software.mywechat.core.model
 
 import com.software.app.core.datastore.UserPreferences
 import kotlinx.datetime.Instant
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
 
 @Serializable
 data class User(
+    @SerialName("user_id")
     val id: String = "",
     val phone:String ="",
     val nickname:String="",

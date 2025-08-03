@@ -17,6 +17,7 @@ fun NavController.navigationToUserDetail(userId:String):Unit{
 fun NavGraphBuilder.userDetailScreen(
     toBack:()->Unit,
     toApplyFriend:(String)->Unit,
+    toWeChat:(String)->Unit,
 ):Unit{
     myComposable(
         "${USER_DETAIL_ROUTE}/{${USER_ID}}",
@@ -27,6 +28,7 @@ fun NavGraphBuilder.userDetailScreen(
         UserDetailRoute(
             toBack = toBack,
             toApplyFriend = toApplyFriend,
+            toWeChat = toWeChat,
         )
     }
 
